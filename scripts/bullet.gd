@@ -13,7 +13,6 @@ func _init():
 func _process(delta):
 	remaining = remaining - target.normalized()*speed*delta
 	if (target - remaining).length() > target.length():
-		print("removing bullet")
 		self.get_child(0).set_texture(null)
 		self.queue_free()
 	else:
