@@ -4,7 +4,7 @@ extends Node
 var frames = 0
 var player
 var planets = [
-["p1", 0, 0, 0],
+["p1", 100, 100, 0],
 ["p2",500,500, 0]
 ]
 

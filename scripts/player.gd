@@ -1,5 +1,5 @@
 
-extends RigidBody2D
+extends KinematicBody2D
 
 var target
 var remaining
@@ -14,10 +14,9 @@ func _init():
 func _process(delta):
 	remaining = remaining - target.normalized()*speed*delta
 	if (target - remaining).length() < target.length():
-		var ds = target.normalized()*speed*delta + self.get_pos()
-		var newTransform = Matrix32(0, ds)
+		var ds = target.normalized()*speed*delta
 		direction = (target - self.get_pos()).normalized()
-		self.set_transform(newTransform)
+		move(ds)
 
 func moveTo(pos):
 	print("Moving to: ", pos)
