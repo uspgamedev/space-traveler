@@ -3,7 +3,7 @@ extends KinematicBody2D
 
 var target
 var remaining
-var speed = 1000.0
+var speed = 100.0
 var direction
 
 func _init():
@@ -28,3 +28,4 @@ func setPosition(pos, dir):
 	target = dir.normalized()*400
 	remaining = target
 	self.set_transform(newTransform)
+

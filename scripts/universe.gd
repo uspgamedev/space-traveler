@@ -30,6 +30,7 @@ func _init():
 func _process(delta):
 	frames += 1
 	if (frames%10) :
+		player.Rotate((get_viewport().get_mouse_pos()-get_viewport().get_rect().size/2))
 		checkPlanets()
 		if (frames > 1000): 
 			frames = 0
@@ -41,7 +42,7 @@ func checkPlanets ():
 				print ("criou"+planet[0])
 				print (planet[3])
 				planet[3] = 1
-				planet[4].set_hidden (false)
+				planet[4].set_hidden(false)
 		elif (planet[3] == 1) :
 			print ("matou"+planet[0])
 			print (planet[3])
@@ -54,10 +55,11 @@ func _input(ev):
 		if (ev.button_mask == 0 and ev.button_index == 2):
 			player.moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
 		if (ev.button_mask == 0 and ev.button_index == 1):
-			var bulletScene = load("res://scenes/Bullet.scn")
+			var bulletScene = load("res://scenes/bullets/Bullet.scn")
 			var bullet = bulletScene.instance()
 			bullet.setPosition(player.get_pos(), ev.pos - get_viewport().get_rect().size/2)
 			add_child(bullet)
+			player.bar.takeDamage(50)
 
 func isInRange (playerPos, planetPos):
 	if ((planetPos - playerPos).length() < 400):
