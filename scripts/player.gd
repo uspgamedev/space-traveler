@@ -21,11 +21,16 @@ func _ready():
 	add_child(bar)
 
 func _process(delta):
+	var ds
 	remaining = remaining - target.normalized()*speed*delta
 	if (target - remaining).length() < target.length():
-		var ds = target.normalized()*speed*delta
+		ds = target.normalized()*speed*delta
 		direction = (target - self.get_pos()).normalized()
 		move(ds)
+		if (is_colliding()):
+			var n = get_collision_normal().slide(ds)
+			move(n)
+	
 
 func moveTo(pos):
 	print("Moving to: ", pos)
