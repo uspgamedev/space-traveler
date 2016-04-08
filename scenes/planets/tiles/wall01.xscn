@@ -46,12 +46,12 @@
 			<array  len="9" shared="false">
 				<bool> False </bool>
 				<resource  resource_type="Shape2D" path="local://1">  </resource>
-				<matrix32> 2.85556, -0, 0, 2.79901, 0.579103, -0.744462 </matrix32>
+				<matrix32> 3.25138, -0, 0, 3.2231, -0.156006, 0.358181 </matrix32>
 				<int> 3 </int>
 				<real> 0.08 </real>
 				<resource  external="0">  </resource>
-				<vector2> 0.579103, -0.744462 </vector2>
-				<vector2> 2.85556, 2.79901 </vector2>
+				<vector2> -0.156006, 0.358181 </vector2>
+				<vector2> 3.25138, 3.2231 </vector2>
 				<int> 0 </int>
 			</array>
 			<string> "version" </string>

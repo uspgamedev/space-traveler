@@ -12,16 +12,22 @@ func _init():
 
 func _fixed_process(delta):
 	remaining = remaining - target.normalized()*speed*delta
-	if (is_colliding()):
-		print("collide")
-		self.queue_free()
-	if (target - remaining).length() > target.length():
+	if ((target - remaining).length() > target.length()):
 		self.get_child(0).set_texture(null)
 		self.queue_free()
 	else:
 		var ds = target.normalized()*speed*delta
 		direction = (target - self.get_pos()).normalized()
 		move (ds)
+	if (!get_child(1).get_overlapping_bodies().empty()):
+		self.get_child(0).set_texture(null)
+		self.queue_free()
+	if (!get_child(1).get_overlapping_areas().empty()):
+		print(get_child(1).get_overlapping_areas()[0].get_collision_mask())
+		if (get_child(1).get_overlapping_areas()[0].get_collision_mask() == 2):
+			print ("flag")
+			get_child(1).get_overlapping_areas()[0].bar.takeDamage(50)
+		self.queue_free()
 
 func setPosition(pos, dir):
 	var newTransform = Matrix32(0, pos)
