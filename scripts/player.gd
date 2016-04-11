@@ -11,7 +11,7 @@ func _init():
 	camera = get_node("Camera2D")
 
 func _ready():
-	movem = self.get_child(0)	
+	movem = self.get_child(0)
 	var barScene = load("res://scenes/HealthBar.scn")
 	bar = barScene.instance()
 	bar.initBar(500.0)

@@ -6,19 +6,20 @@ var remaining
 var speed = 1000.0
 var direction
 
+var movem
+
 func _init():
 	target = self.get_pos()-self.get_pos()
 	set_fixed_process(true)
 
+func _ready():
+	print (self.get_child(2))
+	movem = self.get_child(2)
+	movem.speed = 1000.0
+
 func _fixed_process(delta):
-	remaining = remaining - target.normalized()*speed*delta
-	if ((target - remaining).length() > target.length()):
-		self.get_child(0).set_texture(null)
+	if (movem.finished):
 		self.queue_free()
-	else:
-		var ds = target.normalized()*speed*delta
-		direction = (target - self.get_pos()).normalized()
-		move (ds)
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		self.get_child(0).set_texture(null)
 		print(get_child(1).get_overlapping_bodies()[0].get_collision_mask())
@@ -31,7 +32,7 @@ func _fixed_process(delta):
 		self.queue_free()
 
 func setPosition(pos, dir):
+	print (self.get_child(2).get_name())
 	var newTransform = Matrix32(0, pos)
-	target = dir.normalized()*400
-	remaining = target
+	movem.moveTo(dir.normalized()*400)
 	self.set_transform(newTransform)

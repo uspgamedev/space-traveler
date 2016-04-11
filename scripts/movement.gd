@@ -5,8 +5,12 @@ var target
 var remaining
 var speed = 500.0
 var direction
+var finished = 0
+
 var shouldRotate = 0
+
 var rotScene
+
 
 func _init():
 	set_process(true)
@@ -26,9 +30,10 @@ func _process(delta):
 		if (get_parent().is_colliding()):
 			var n = get_parent().get_collision_normal().slide(ds)
 			get_parent().move(n)
+	else :
+		finished = 1
 	if (shouldRotate) :
 		rotate(ds)
-	
 
 func moveTo(pos):
 	print("Moving to: ", pos)

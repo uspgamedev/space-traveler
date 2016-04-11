@@ -1,7 +1,7 @@
 
 extends RigidBody2D
 
-var period = 60
+var period = 30
 var count = 0
 
 var target

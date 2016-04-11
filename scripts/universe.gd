@@ -59,8 +59,9 @@ func _input(ev):
 		if (ev.button_mask == 0 and ev.button_index == 1):
 			var bulletScene = load("res://scenes/bullets/Bullet.scn")
 			var bullet = bulletScene.instance()
-			bullet.setPosition(player.get_pos(), ev.pos - get_viewport().get_rect().size/2)
 			add_child(bullet)
+			bullet.setPosition(player.get_pos(), ev.pos - get_viewport().get_rect().size/2)
+			
 			#player.bar.takeDamage(50)
 
 func isInRange (playerPos, planetPos):
