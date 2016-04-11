@@ -55,7 +55,7 @@ func checkPlanets ():
 func _input(ev):
 	if (ev.type==InputEvent.MOUSE_BUTTON):
 		if (ev.button_mask == 0 and ev.button_index == 2):
-			player.moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
+			player.get_child(0).moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
 		if (ev.button_mask == 0 and ev.button_index == 1):
 			var bulletScene = load("res://scenes/bullets/Bullet.scn")
 			var bullet = bulletScene.instance()

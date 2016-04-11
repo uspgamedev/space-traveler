@@ -24,6 +24,9 @@ func _fixed_process(delta):
 			print ("flag")
 			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(20)
 		self.queue_free()
+	if (!get_child(1).get_overlapping_areas().empty()):
+		self.get_child(0).set_texture(null)
+		self.queue_free()
 
 func setPosition(pos, dir):
 	var newTransform = Matrix32(0, pos)
