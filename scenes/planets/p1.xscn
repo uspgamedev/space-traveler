@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<resource_file type="PackedScene" subresource_count="4" version="2.0" version_name="Godot Engine v2.0.stable.official">
-	<ext_resource path="res://scenes/planets/tiles/staticmonster1.xscn" type="PackedScene" index="1"></ext_resource>
-	<ext_resource path="res://scripts/planets/p1.gd" type="Script" index="0"></ext_resource>
+<resource_file type="PackedScene" subresource_count="5" version="2.0" version_name="Godot Engine v2.0.stable.official">
 	<ext_resource path="res://scenes/planets/tiles/wall01.xscn" type="PackedScene" index="2"></ext_resource>
+	<ext_resource path="res://scripts/planets/p1.gd" type="Script" index="0"></ext_resource>
+	<ext_resource path="res://scenes/planets/tiles/staticmonster1.xscn" type="PackedScene" index="1"></ext_resource>
+	<ext_resource path="res://scenes/planets/tiles/mobilemonster1.xscn" type="PackedScene" index="3"></ext_resource>
 	<main_resource>
 		<dictionary name="_bundled" shared="false">
 			<string> "conn_count" </string>
@@ -15,7 +16,7 @@
 				<node_path> "RigidBody2D 5" </node_path>
 			</array>
 			<string> "names" </string>
-			<string_array  len="45">
+			<string_array  len="46">
 				<string> "RigidBody2D" </string>
 				<string> "input/pickable" </string>
 				<string> "collision/layers" </string>
@@ -61,16 +62,17 @@
 				<string> "RigidBody2D 22" </string>
 				<string> "RigidBody2D 23" </string>
 				<string> "RigidBody2D 24" </string>
+				<string> "RigidBody2D 25" </string>
 			</string_array>
 			<string> "node_count" </string>
-			<int> 25 </int>
+			<int> 26 </int>
 			<string> "node_paths" </string>
 			<array  len="0" shared="false">
 			</array>
 			<string> "nodes" </string>
-			<int_array  len="259"> 				-1, -1, 0, 0, -1, 19, 1, 0, 2, 1, 3, 2, 4, 1, 5, 3, 6, 3, 7, 4, 8, 4, 9, 5, 10, 2, 11, 2, 12, 5, 13, 5, 14, 0, 15, 6, 16, 4, 17, 7, 18, 7, 19, 8, 0, 0, 0, 2147483647, 20, 9, 1, 21, 10, 0, 0, 0, 2147483647, 23, 9, 1, 21, 11, 0, 0, 0, 2147483647, 0, 12, 1, 21, 13, 0, 0, 0, 2147483647, 24, 12, 1, 21, 14, 0, 0, 0, 2147483647, 25, 12, 1, 21, 15, 0, 0, 0, 2147483647, 26, 12, 1, 21, 16, 0, 0, 0, 2147483647, 27, 12, 1, 21, 17, 0, 0, 0, 2147483647, 28, 12, 1, 21, 18, 0, 0, 0, 2147483647, 29, 12, 1, 21, 19, 0, 0, 0, 2147483647, 30, 12, 1, 21, 20, 0, 0, 0, 2147483647, 31, 12, 1, 21, 21, 0, 0, 0, 2147483647, 32, 12, 1, 21, 22, 0, 0, 0, 2147483647, 33, 12, 1, 21, 23, 0, 0, 0, 2147483647, 34, 12, 1, 21, 24, 0, 0, 0, 2147483647, 35, 12, 1, 21, 25, 0, 0, 0, 2147483647, 36, 12, 1, 21, 26, 0, 0, 0, 2147483647, 37, 12, 1, 21, 27, 0, 0, 0, 2147483647, 38, 12, 1, 21, 28, 0, 0, 0, 2147483647, 39, 12, 1, 21, 29, 0, 0, 0, 2147483647, 40, 12, 1, 21, 30, 0, 0, 0, 2147483647, 41, 12, 1, 21, 31, 0, 0, 0, 2147483647, 42, 12, 0, 0, 0, 0, 2147483647, 43, 12, 1, 21, 32, 0, 0, 0, 2147483647, 44, 12, 1, 21, 33, 0 </int_array>
+			<int_array  len="268"> 				-1, -1, 0, 0, -1, 19, 1, 0, 2, 1, 3, 2, 4, 1, 5, 3, 6, 3, 7, 4, 8, 4, 9, 5, 10, 2, 11, 2, 12, 5, 13, 5, 14, 0, 15, 6, 16, 4, 17, 7, 18, 7, 19, 8, 0, 0, 0, 2147483647, 20, 9, 1, 21, 10, 0, 0, 0, 2147483647, 23, 9, 1, 21, 11, 0, 0, 0, 2147483647, 0, 12, 1, 21, 13, 0, 0, 0, 2147483647, 24, 12, 1, 21, 14, 0, 0, 0, 2147483647, 25, 12, 1, 21, 15, 0, 0, 0, 2147483647, 26, 12, 1, 21, 16, 0, 0, 0, 2147483647, 27, 12, 1, 21, 17, 0, 0, 0, 2147483647, 28, 12, 1, 21, 18, 0, 0, 0, 2147483647, 29, 12, 1, 21, 19, 0, 0, 0, 2147483647, 30, 12, 1, 21, 20, 0, 0, 0, 2147483647, 31, 12, 1, 21, 21, 0, 0, 0, 2147483647, 32, 12, 1, 21, 22, 0, 0, 0, 2147483647, 33, 12, 1, 21, 23, 0, 0, 0, 2147483647, 34, 12, 1, 21, 24, 0, 0, 0, 2147483647, 35, 12, 1, 21, 25, 0, 0, 0, 2147483647, 36, 12, 1, 21, 26, 0, 0, 0, 2147483647, 37, 12, 1, 21, 27, 0, 0, 0, 2147483647, 38, 12, 1, 21, 28, 0, 0, 0, 2147483647, 39, 12, 1, 21, 29, 0, 0, 0, 2147483647, 40, 12, 1, 21, 30, 0, 0, 0, 2147483647, 41, 12, 1, 21, 31, 0, 0, 0, 2147483647, 42, 12, 0, 0, 0, 0, 2147483647, 43, 12, 1, 21, 32, 0, 0, 0, 2147483647, 44, 12, 1, 21, 33, 0, 0, 0, 2147483647, 45, 34, 1, 21, 35, 0 </int_array>
 			<string> "variants" </string>
-			<array  len="34" shared="false">
+			<array  len="36" shared="false">
 				<bool> True </bool>
 				<int> 1 </int>
 				<int> 0 </int>
@@ -87,7 +89,7 @@
 				<vector2> -192, -192 </vector2>
 				<vector2> -128, -192 </vector2>
 				<vector2> -64, -192 </vector2>
-				<vector2> 185.733, 158.175 </vector2>
+				<vector2> -6.36121, 368.223 </vector2>
 				<vector2> -0, -192 </vector2>
 				<vector2> 64, -192 </vector2>
 				<vector2> 128, -192 </vector2>
@@ -105,6 +107,8 @@
 				<vector2> 192, -128 </vector2>
 				<vector2> 192, -64 </vector2>
 				<vector2> -192, -64 </vector2>
+				<resource  external="3">  </resource>
+				<vector2> 0, 64 </vector2>
 			</array>
 			<string> "version" </string>
 			<int> 2 </int>

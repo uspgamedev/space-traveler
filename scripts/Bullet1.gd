@@ -20,15 +20,9 @@ func _fixed_process(delta):
 		move (ds)
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		print(get_child(1).get_overlapping_bodies()[0].get_collision_mask())
-		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 2):
+		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 6):
 			print ("flag")
 			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(50)
-		self.queue_free()
-	if (!get_child(1).get_overlapping_areas().empty()):
-		print(get_child(1).get_overlapping_areas()[0].get_collision_mask())
-		if (get_child(1).get_overlapping_areas()[0].get_collision_mask() == 2):
-			print ("flag")
-			get_child(1).get_overlapping_areas()[0].bar.takeDamage(50)
 		self.queue_free()
 
 func setPosition(pos, dir):
