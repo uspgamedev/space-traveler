@@ -4,6 +4,9 @@ extends KinematicBody2D
 var movem
 var camera
 var bar
+var skillPath = ["res://scenes/bullets/Skill1.xscn", "res://scenes/bullets/Skill12.xscn", "res://scenes/bullets/Skill12.xscn"]
+var skillCharges = [0, 0, 0]
+var basicAttack = "res://scenes/bullets/Bullet.scn"
 
 
 func _init():

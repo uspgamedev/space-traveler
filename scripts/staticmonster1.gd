@@ -27,6 +27,6 @@ func _process(delta):
 func shot (pos):
 	var bulletScene = load("res://scenes/bullets/Bullet1.scn")
 	var bullet = bulletScene.instance()
-	bullet.setPosition(self.get_pos(), Vector2(pos.x-self.get_pos().x-self.get_parent().get_pos().x, pos.y-self.get_pos().y-self.get_parent().get_pos().y))
 	get_parent().add_child(bullet)
+	bullet.setPosition(self.get_pos(), Vector2(pos.x-self.get_pos().x-self.get_parent().get_pos().x, pos.y-self.get_pos().y-self.get_parent().get_pos().y))
 	pass

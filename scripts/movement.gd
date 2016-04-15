@@ -33,10 +33,9 @@ func _process(delta):
 	else :
 		finished = 1
 	if (shouldRotate) :
-		rotate(ds)
+		rotate(target)
 
 func moveTo(pos):
-	print("Moving to: ", pos)
 	target = pos - get_parent().get_pos()
 	remaining = target
 

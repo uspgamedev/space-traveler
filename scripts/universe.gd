@@ -3,6 +3,11 @@ extends Node
 
 var frames = 0
 var player
+var skills = [
+[0],
+[0],
+[0]
+]
 var planets = [
 ["p1", -800, -800, 0],
 ["p2",1000,1000, 0]
@@ -22,6 +27,7 @@ func _init():
 		planet.append(p)
 		add_child(p)
 		planet[4].set_pos(Vector2(planet[1], planet[2]))
+	initSkill()
 	checkPlanets()
 
 func _process(delta):
@@ -47,27 +53,49 @@ func checkPlanets ():
 				planets[i][3] = 1
 				planets[i][4].set_hidden(false)
 		elif (planets[i][3] == 1) :
-			#print ("matou"+planet[0])
-			#print (planet[3])
 			planets[i][3] = 0
 			planets[i][4].set_hidden (true)
 
 func _input(ev):
+	if (ev.type==InputEvent.KEY):
+		if (ev.scancode == 81) :
+			setSkill(0)
 	if (ev.type==InputEvent.MOUSE_BUTTON):
 		if (ev.button_mask == 0 and ev.button_index == 2):
 			player.get_child(0).moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
 		if (ev.button_mask == 0 and ev.button_index == 1):
-			var bulletScene = load("res://scenes/bullets/Bullet.scn")
+			#print (getSkill())
+			var bulletScene = load(getSkill())
 			var bullet = bulletScene.instance()
 			add_child(bullet)
 			bullet.setPosition(player.get_pos(), ev.pos - get_viewport().get_rect().size/2)
-			
-			#player.bar.takeDamage(50)
 
 func isInRange (playerPos, planetPos):
 	if ((planetPos - playerPos).length() < 600):
 		return 1
 	return 0
+
+func initSkill ():
+	for skill in skills :
+		skill.append(player.skillPath[skills.find(skill)])
+
+func setSkill (i):
+	for skill in skills :
+		skill[0] = 0
+	skills[i][0] = 1
+	skills[i][1] = player.skillPath[i]
+	player.skillCharges[i] = -1
+
+func getSkill () :
+	for skill in skills :
+		if (skill[0] == 1): 
+			#print (player.skillCharges[skills.find(skill)])
+			if (player.skillCharges[skills.find(skill)] > 0 or player.skillCharges[skills.find(skill)] == -1) :
+				print ("dont care")
+				print (player.skillCharges[skills.find(skill)])
+				print (skills.find(skill))
+				return skill[1]
+	return player.basicAttack
 
 func _ready():
 	pass

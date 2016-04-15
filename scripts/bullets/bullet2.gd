@@ -30,7 +30,7 @@ func _fixed_process(delta):
 
 func setPosition(pos, dir):
 	var newTransform = Matrix32(0, pos)
-	target = dir.normalized()*400
+	target = dir.normalized()*1600
 	remaining = target
 	self.set_transform(newTransform)
 
