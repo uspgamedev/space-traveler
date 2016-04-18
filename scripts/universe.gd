@@ -33,11 +33,11 @@ func _init():
 
 func _process(delta):
 	frames += 1
-	if (frames%10) :
-		player.Rotate((get_viewport().get_mouse_pos()-get_viewport().get_rect().size/2))
+	if (frames%10 == 0) :
 		checkPlanets()
 		if (frames > 1000): 
 			frames = 0
+	player.Rotate((get_viewport().get_mouse_pos()-get_viewport().get_rect().size/2))
 
 func checkPlanets ():
 	var d0 = sqrt((planets[0][1] - player.get_pos().x)*(planets[0][1] - player.get_pos().x) + (planets[0][2] - player.get_pos().y)*(planets[0][2] - player.get_pos().y))
@@ -47,17 +47,17 @@ func checkPlanets ():
 		if d < d0 :
 			d0 = d
 			mim_index = i
-	
 	for i in range(0, planets.size()):
 		if (i == mim_index) :
 			if (planets[i][3] == 0):
 				planets[i][3] = 1
 				putToSleep(planets[i][4], false)
-				#planets[i][4].set_hidden(false)
+				planets[i][4].set_hidden(false)
 		else :
 			planets[i][3] = 0
+			#if ((planets[i][4].is_processing()) == true) :
 			putToSleep(planets[i][4], true)
-			#planets[i][4].set_hidden (true)
+			planets[i][4].set_hidden (true)
 
 func _input(ev):
 	if (ev.type==InputEvent.KEY):
@@ -101,9 +101,6 @@ func getSkill () :
 	return player.basicAttack
 
 func putToSleep (sce, value) :
-	#if ((not sce.is_processing()) == value) :
-	#print ("gg ", sce.is_processing(), sce)
-	#	return
 	sce.set_process (!value)
 	for chi in  sce.get_children () :
 		putToSleep (chi, value)
