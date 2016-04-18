@@ -27,6 +27,7 @@ func _process(delta):
 	count += 1
 	var pos = self.get_parent().get_parent().get_child(0).get_pos()
 	movem.moveTo(pos - self.get_parent().get_pos())
+	#movem.ocilateBetween (Vector2(5, 0), 1)
 	if (count%period < 1):
 		shot(pos)
 	if (bar.curHp == 0):

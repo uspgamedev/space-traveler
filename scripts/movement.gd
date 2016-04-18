@@ -3,7 +3,13 @@ extends Node
 
 var target
 var remaining
+
+var ociStart
+var ociTarget
+var period
+
 var speed = 500.0
+
 var direction
 var finished = 0
 
@@ -11,6 +17,9 @@ var shouldRotate = 0
 
 var rotScene
 
+var del = 0.012
+
+var thread = Thread.new()
 
 func _init():
 	set_process(true)
@@ -22,6 +31,7 @@ func _ready():
 
 func _process(delta):
 	var ds
+	del = delta
 	remaining = remaining - target.normalized()*speed*delta
 	if (target - remaining).length() < target.length():
 		ds = target.normalized()*speed*delta
@@ -45,3 +55,17 @@ func rotate (pos):
 func setRotScene (rotScn) :
 	rotScene = rotScn
 	shouldRotate = 1
+
+func ocilateBetween (pos, T) :
+	period = T
+	ociTarget = pos
+	ociStart = self.get_parent().get_pos()
+	thread.start(self, thOcilateBetween(), null)
+
+func thOcilateBetween () :
+	var r = ((ociTarget-ociStart)/2)
+	while (1) :
+		var ang = atan2(((self.get_parent().get_pos() - ociStart - r)*(1/r.length())).x, ((self.get_parent().get_pos() - ociStart - r)*(1/r.length())).y)
+		var ds = cos(del/period + ang)*r+r
+		get_parent().move(ds)
+		#yield(get_tree(), "idle_frame")

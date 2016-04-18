@@ -29,7 +29,6 @@ func _init():
 		planet[4].set_pos(Vector2(planet[1], planet[2]))
 		planet[4].set_process(true)
 	initSkill()
-	checkPlanets()
 
 func _process(delta):
 	frames += 1
@@ -55,9 +54,9 @@ func checkPlanets ():
 				planets[i][4].set_hidden(false)
 		else :
 			planets[i][3] = 0
-			#if ((planets[i][4].is_processing()) == true) :
-			putToSleep(planets[i][4], true)
-			planets[i][4].set_hidden (true)
+			if ((planets[i][4].is_processing()) == true) :
+				putToSleep(planets[i][4], true)
+				planets[i][4].set_hidden (true)
 
 func _input(ev):
 	if (ev.type==InputEvent.KEY):
@@ -106,4 +105,5 @@ func putToSleep (sce, value) :
 		putToSleep (chi, value)
 
 func _ready():
+	checkPlanets()
 	pass
