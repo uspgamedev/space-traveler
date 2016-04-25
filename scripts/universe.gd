@@ -3,6 +3,7 @@ extends Node
 
 var frames = 0
 var player
+var didMove = 0
 var skills = [
 [0],
 [0],
@@ -65,12 +66,18 @@ func _input(ev):
 	if (ev.type==InputEvent.MOUSE_BUTTON):
 		if (ev.button_mask == 0 and ev.button_index == 2):
 			player.get_child(0).moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
+			if (not didMove) :
+				player.baCoolDown[1] -= player.baCoolDown[0]*0.4
+				didMove = 1
 		if (ev.button_mask == 0 and ev.button_index == 1):
 			#print (getSkill())
-			var bulletScene = load(getSkill())
-			var bullet = bulletScene.instance()
-			add_child(bullet)
-			bullet.setPosition(player.get_pos(), ev.pos - get_viewport().get_rect().size/2)
+			var projectile = getSkill()
+			if (projectile != "noBullet") :
+				print (projectile)
+				var bulletScene = load(projectile)
+				var bullet = bulletScene.instance()
+				add_child(bullet)
+				bullet.setPosition(player.get_pos(), ev.pos - get_viewport().get_rect().size/2)
 
 func isInRange (playerPos, planetPos):
 	if ((planetPos - playerPos).length() < 600):
@@ -92,12 +99,22 @@ func getSkill () :
 	for skill in skills :
 		if (skill[0] == 1): 
 			#print (player.skillCharges[skills.find(skill)])
-			if (player.skillCharges[skills.find(skill)] > 0 or player.skillCharges[skills.find(skill)] == -1) :
-				print ("dont care")
-				print (player.skillCharges[skills.find(skill)])
-				print (skills.find(skill))
+			if ((player.skillCharges[skills.find(skill)] > 0 or player.skillCharges[skills.find(skill)] == -1) and player.skillCoolDown[skills.find(skill)][0] + player.skillCoolDown[skills.find(skill)][1] < OS.get_ticks_msec()/1000.0) :
+				#print ("dont care")
+				#print (player.skillCharges[skills.find(skill)])
+				#print (skills.find(skill))
+				player.skillCoolDown[skills.find(skill)][1] = OS.get_ticks_msec()/1000.0
 				return skill[1]
-	return player.basicAttack
+			else :
+				player.skillCharges[skills.find(skill)] = 0
+	
+	if (player.baCoolDown[0] + player.baCoolDown[1] < OS.get_ticks_msec()/1000.0) :
+		player.baCoolDown[1] = OS.get_ticks_msec()/1000.0
+		print (OS.get_ticks_msec()/1000.0)
+		didMove = 0
+		return player.basicAttack
+	else :
+		return "noBullet"
 
 func putToSleep (sce, value) :
 	sce.set_process (!value)
