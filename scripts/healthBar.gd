@@ -3,6 +3,7 @@ extends Node
 
 var maxHp = 1.0
 var curHp = 1.0
+var armor = 0.0
 
 func _ready():
 	pass
@@ -13,7 +14,7 @@ func initBar(newhp):
 	curHp = newhp
 
 func takeDamage(damage):
-	curHp -= damage
+	curHp -= damage*(100/(100+armor))
 	updateBar()
 
 func updateBar():

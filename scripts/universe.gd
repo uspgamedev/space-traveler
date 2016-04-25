@@ -62,9 +62,11 @@ func checkPlanets ():
 
 func _input(ev):
 	if (ev.type==InputEvent.KEY):
+		print (ev.scancode)
 		if (ev.scancode == 81) :
-			print("viado")
 			setSkill(0)
+		elif (ev.scancode == 87) :
+			setSkill(1)
 	if (ev.type==InputEvent.MOUSE_BUTTON):
 		print (ev.button_mask, ev.button_index)
 		if (ev.button_mask == 0 and ev.button_index == 2):
