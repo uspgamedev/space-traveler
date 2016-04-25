@@ -4,6 +4,7 @@ extends Node
 var frames = 0
 var player
 var didMove = 0
+var rightMouseIsPressed = 0
 var skills = [
 [0],
 [0],
@@ -62,22 +63,27 @@ func checkPlanets ():
 func _input(ev):
 	if (ev.type==InputEvent.KEY):
 		if (ev.scancode == 81) :
+			print("viado")
 			setSkill(0)
 	if (ev.type==InputEvent.MOUSE_BUTTON):
+		print (ev.button_mask, ev.button_index)
 		if (ev.button_mask == 0 and ev.button_index == 2):
+			rightMouseIsPressed = 1
 			player.get_child(0).moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
 			if (not didMove) :
 				player.baCoolDown[1] -= player.baCoolDown[0]*0.4
 				didMove = 1
+		else:
+			rightMouseIsPressed = 0
 		if (ev.button_mask == 0 and ev.button_index == 1):
-			#print (getSkill())
 			var projectile = getSkill()
 			if (projectile != "noBullet") :
-				print (projectile)
 				var bulletScene = load(projectile)
 				var bullet = bulletScene.instance()
 				add_child(bullet)
 				bullet.setPosition(player.get_pos(), ev.pos - get_viewport().get_rect().size/2)
+	if (ev.type==InputEvent.MOUSE_MOTION and rightMouseIsPressed == 1): 
+		player.get_child(0).moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
 
 func isInRange (playerPos, planetPos):
 	if ((planetPos - playerPos).length() < 600):
@@ -98,11 +104,7 @@ func setSkill (i):
 func getSkill () :
 	for skill in skills :
 		if (skill[0] == 1): 
-			#print (player.skillCharges[skills.find(skill)])
 			if ((player.skillCharges[skills.find(skill)] > 0 or player.skillCharges[skills.find(skill)] == -1) and player.skillCoolDown[skills.find(skill)][0] + player.skillCoolDown[skills.find(skill)][1] < OS.get_ticks_msec()/1000.0) :
-				#print ("dont care")
-				#print (player.skillCharges[skills.find(skill)])
-				#print (skills.find(skill))
 				player.skillCoolDown[skills.find(skill)][1] = OS.get_ticks_msec()/1000.0
 				return skill[1]
 			else :
@@ -110,7 +112,6 @@ func getSkill () :
 	
 	if (player.baCoolDown[0] + player.baCoolDown[1] < OS.get_ticks_msec()/1000.0) :
 		player.baCoolDown[1] = OS.get_ticks_msec()/1000.0
-		print (OS.get_ticks_msec()/1000.0)
 		didMove = 0
 		return player.basicAttack
 	else :
