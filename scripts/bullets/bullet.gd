@@ -10,7 +10,7 @@ func _init():
 
 func _ready():
 	movem = self.get_child(2)
-	movem.speed = 1000.0
+	movem.setSpeed(1000.0)
 
 func _fixed_process(delta):
 	if (movem.finished):

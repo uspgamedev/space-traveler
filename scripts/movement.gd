@@ -8,6 +8,7 @@ var ociStart
 var ociTarget
 var period
 
+var speed0 = 500.0
 var speed = 500.0
 
 var direction
@@ -45,7 +46,11 @@ func _process(delta):
 	if (shouldRotate) :
 		rotate(target)
 
-func moveTo(pos):
+func setSpeed (var sp):
+	speed0 = sp
+
+func moveTo(pos, s = speed0):
+	speed = s
 	target = pos - get_parent().get_pos()
 	remaining = target
 

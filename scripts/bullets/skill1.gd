@@ -13,7 +13,7 @@ func _init():
 func _ready():
 	print (self.get_child(2))
 	movem = self.get_child(2)
-	movem.speed = 1000.0
+	movem.setSpeed(1000.0)
 	for skill in get_parent().skills :
 		if (skill[1] == (self.get_filename())):
 			index = get_parent().skills.find(skill)

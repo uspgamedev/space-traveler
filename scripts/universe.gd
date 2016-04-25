@@ -67,6 +67,8 @@ func _input(ev):
 			setSkill(0)
 		elif (ev.scancode == 87) :
 			setSkill(1)
+		elif (ev.scancode == 69) :
+			setSkill(2)
 	if (ev.type==InputEvent.MOUSE_BUTTON):
 		print (ev.button_mask, ev.button_index)
 		if (ev.button_mask == 0 and ev.button_index == 2):

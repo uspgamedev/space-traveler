@@ -12,7 +12,7 @@ func _init():
 func _ready():
 	movem = self.get_child(0)
 	movem.shouldRotate = true
-	movem.speed = 200
+	movem.setSpeed(200.0)
 	movem.setRotScene(self.get_child(1))
 	var barScene = load("res://scenes/HealthBar.scn")
 	bar = barScene.instance()
