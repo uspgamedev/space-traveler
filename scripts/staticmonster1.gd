@@ -18,7 +18,7 @@ func setPeriod (sp):
 
 func _process(delta):
 	count += 1
-	var pos = self.get_parent().get_parent().get_child(0).get_pos()
+	var pos = self.get_parent().get_parent().player.get_pos()
 	self.set_rot(atan2(pos.x-self.get_pos().x-self.get_parent().get_pos().x, pos.y-self.get_pos().y-self.get_parent().get_pos().y)+PI)
 	
 	if (count%period < 1):

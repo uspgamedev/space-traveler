@@ -1,10 +1,12 @@
 
-extends Node
+extends Node2D
 
 var frames = 0
 var player
 var didMove = 0
 var rightMouseIsPressed = 0
+var indicatorRadious = 30.0
+var lastMovePos = Vector2()
 var skills = [
 [0],
 [0],
@@ -34,11 +36,23 @@ func _init():
 
 func _process(delta):
 	frames += 1
+	update()
+	print (player.get_child(2).get_camera_pos()-player.get_child(2).get_camera_screen_center())
 	if (frames%10 == 0) :
 		checkPlanets()
 		if (frames > 1000): 
 			frames = 0
 	player.Rotate((get_viewport().get_mouse_pos()-get_viewport().get_rect().size/2))
+	if (player.bar.curHp == 0):
+		var playerScene = load("res://scenes/Player.scn")
+		player.queue_free()
+		player = playerScene.instance()
+		add_child(player)
+
+func _draw():
+	if (indicatorRadious > 0):
+		draw_circle(lastMovePos, indicatorRadious, Color(178.0/255, 255.0/255, 89.0/255, 0.1))
+		indicatorRadious -= 1
 
 func checkPlanets ():
 	var d0 = sqrt((planets[0][1] - player.get_pos().x)*(planets[0][1] - player.get_pos().x) + (planets[0][2] - player.get_pos().y)*(planets[0][2] - player.get_pos().y))
@@ -62,7 +76,6 @@ func checkPlanets ():
 
 func _input(ev):
 	if (ev.type==InputEvent.KEY):
-		print (ev.scancode)
 		if (ev.scancode == 81) :
 			setSkill(0)
 		elif (ev.scancode == 87) :
@@ -70,10 +83,11 @@ func _input(ev):
 		elif (ev.scancode == 69) :
 			setSkill(2)
 	if (ev.type==InputEvent.MOUSE_BUTTON):
-		print (ev.button_mask, ev.button_index)
 		if (ev.button_mask == 0 and ev.button_index == 2):
 			rightMouseIsPressed = 1
 			player.get_child(0).moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
+			lastMovePos = ev.pos - get_viewport().get_rect().size/2 + player.get_child(2).get_camera_screen_center()
+			indicatorRadious = 30.0
 			if (not didMove) :
 				player.baCoolDown[1] -= player.baCoolDown[0]*0.4
 				didMove = 1
@@ -88,6 +102,8 @@ func _input(ev):
 				bullet.setPosition(player.get_pos(), ev.pos - get_viewport().get_rect().size/2)
 	if (ev.type==InputEvent.MOUSE_MOTION and rightMouseIsPressed == 1): 
 		player.get_child(0).moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
+		lastMovePos = ev.pos - get_viewport().get_rect().size/2 + player.get_child(2).get_camera_screen_center()
+		indicatorRadious = 30.0
 
 func isInRange (playerPos, planetPos):
 	if ((planetPos - playerPos).length() < 600):

@@ -5,9 +5,9 @@ var movem
 var camera
 var camera3d
 var bar
-var skillPath = ["res://scenes/bullets/Skill1.xscn", "res://scenes/bullets/Skill2.xscn", "res://scenes/bullets/Skill3.xscn"]
+var skillPath = ["res://scenes/bullets/Skill1.xscn", "res://scenes/bullets/Skill3.xscn", "res://scenes/bullets/Skill2.xscn"]
 var skillCharges = [0, 0, 0]
-var skillCoolDown = [[4.0, 0.0], [5.0, 0.0], [2.0, 0.0]]
+var skillCoolDown = [[3.5, -3.5], [2.0, -2.0], [5.0, -5.0]]
 var baCoolDown = [0.7, 0.0]
 var basicAttack = "res://scenes/bullets/Bullet.scn"
 

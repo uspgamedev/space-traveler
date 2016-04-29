@@ -1,5 +1,5 @@
 
-extends Node
+extends Node2D
 
 var index
 var charges = 1
