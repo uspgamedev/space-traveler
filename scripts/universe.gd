@@ -37,7 +37,6 @@ func _init():
 func _process(delta):
 	frames += 1
 	update()
-	print (player.get_child(2).get_camera_pos()-player.get_child(2).get_camera_screen_center())
 	if (frames%10 == 0) :
 		checkPlanets()
 		if (frames > 1000): 
@@ -75,6 +74,7 @@ func checkPlanets ():
 				planets[i][4].set_hidden (true)
 
 func _input(ev):
+	#print(ev)
 	if (ev.type==InputEvent.KEY):
 		if (ev.scancode == 81) :
 			setSkill(0)
@@ -83,7 +83,8 @@ func _input(ev):
 		elif (ev.scancode == 69) :
 			setSkill(2)
 	if (ev.type==InputEvent.MOUSE_BUTTON):
-		if (ev.button_mask == 0 and ev.button_index == 2):
+		print(ev.button_index)
+		if (ev.is_pressed() && ev.button_index == 2):
 			rightMouseIsPressed = 1
 			player.get_child(0).moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
 			lastMovePos = ev.pos - get_viewport().get_rect().size/2 + player.get_child(2).get_camera_screen_center()
@@ -93,7 +94,7 @@ func _input(ev):
 				didMove = 1
 		else:
 			rightMouseIsPressed = 0
-		if (ev.button_mask == 0 and ev.button_index == 1):
+		if (ev.is_pressed() && ev.button_index == 1):
 			var projectile = getSkill()
 			if (projectile != "noBullet") :
 				var bulletScene = load(projectile)
