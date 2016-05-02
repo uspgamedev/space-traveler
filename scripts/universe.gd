@@ -77,11 +77,11 @@ func _input(ev):
 	#print(ev)
 	if (ev.type==InputEvent.KEY):
 		if (ev.scancode == 81) :
-			setSkill(0)
+			doSkill(0)
 		elif (ev.scancode == 87) :
-			setSkill(1)
+			doSkill(1)
 		elif (ev.scancode == 69) :
-			setSkill(2)
+			doSkill(2)
 	if (ev.type==InputEvent.MOUSE_BUTTON):
 		print(ev.button_index)
 		if (ev.is_pressed() && ev.button_index == 2):
@@ -95,7 +95,7 @@ func _input(ev):
 		else:
 			rightMouseIsPressed = 0
 		if (ev.is_pressed() && ev.button_index == 1):
-			var projectile = getSkill()
+			var projectile = getBullet()
 			if (projectile != "noBullet") :
 				var bulletScene = load(projectile)
 				var bullet = bulletScene.instance()
@@ -115,14 +115,24 @@ func initSkill ():
 	for skill in skills :
 		skill.append(player.skillPath[skills.find(skill)])
 
-func setSkill (i):
+func doSkill (i):
+	if (player.skillCoolDown[i][0] + player.skillCoolDown[i][1] < OS.get_ticks_msec()/1000.0) :
+		var skPath = player.skillPath[i]
+		var skillScene = load(skPath)
+		var skill = skillScene.instance()
+		add_child(skill)
+		skill.setup(i)
+
+func setBullet (i, bltPath):
 	for skill in skills :
 		skill[0] = 0
 	skills[i][0] = 1
-	skills[i][1] = player.skillPath[i]
+	skills[i][1] = bltPath
 	player.skillCharges[i] = -1
 
-func getSkill () :
+
+
+func getBullet () :
 	for skill in skills :
 		if (skill[0] == 1): 
 			if ((player.skillCharges[skills.find(skill)] > 0 or player.skillCharges[skills.find(skill)] == -1) and player.skillCoolDown[skills.find(skill)][0] + player.skillCoolDown[skills.find(skill)][1] < OS.get_ticks_msec()/1000.0) :

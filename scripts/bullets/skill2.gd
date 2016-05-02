@@ -19,6 +19,9 @@ func _ready():
 	if (get_parent().player.skillCharges[index] == -1) :
 		get_parent().player.skillCharges[index] = charges
 	get_parent().player.skillCharges[index] -= 1
+
+func setup (i):
+	get_parent().player.skillCoolDown[i][1] = OS.get_ticks_msec()/1000.0
 	initTime = OS.get_ticks_msec()/1000.0
 	endTime += initTime
 	oldAS = get_parent().player.baCoolDown[0]
