@@ -2,10 +2,11 @@
 extends KinematicBody2D
 
 var movem
+var rotationVector = Vector2(0,0)
 var camera
 var camera3d
 var bar
-var skillPath = ["res://scenes/bullets/Skill1.xscn", "res://scenes/bullets/Skill3.xscn", "res://scenes/bullets/Skill2.xscn"]
+var skillPath = ["res://scenes/bullets/Skill4.xscn", "res://scenes/bullets/Skill3.xscn", "res://scenes/bullets/Skill2.xscn"]
 var skillCharges = [0, 0, 0]
 var skillCoolDown = [[3.5, -3.5], [2.0, -2.0], [5.0, -5.0]]
 var baCoolDown = [0.7, 0.0]
@@ -26,6 +27,7 @@ func _ready():
 
 func Rotate (pos):
 	self.get_child(1).set_rot(atan2(pos.x, pos.y)+PI)
+	rotationVector = pos
 
 func _process(delta):
 	pass

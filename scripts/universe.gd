@@ -96,6 +96,7 @@ func _input(ev):
 			rightMouseIsPressed = 0
 		if (ev.is_pressed() && ev.button_index == 1):
 			var projectile = getBullet()
+			print(projectile)
 			if (projectile != "noBullet") :
 				var bulletScene = load(projectile)
 				var bullet = bulletScene.instance()

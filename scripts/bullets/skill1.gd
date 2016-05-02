@@ -14,7 +14,7 @@ func setup (i) :
 	if (get_parent().player.skillCharges[i] == -1) :
 		get_parent().player.skillCharges[i] = charges
 	get_parent().player.skillCharges[i] -= 1
-	get_parent().setBullet(i, "res://scenes/bullets/bulletSk1.xscn")
+	get_parent().setBullet(i, "res://scenes/bullets/BulletSk1.xscn")
 	finished = 1
 
 func _process(delta):
