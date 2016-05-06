@@ -93,8 +93,8 @@ func _input(ev):
 		if (ev.is_pressed() && ev.button_index == 1):
 			var projectile = getBullet()
 			print(projectile)
+			didSetBA = 0
 			if (projectile != "noBullet") :
-				didSetBA = 0
 				var bulletScene = load(projectile)
 				var bullet = bulletScene.instance()
 				add_child(bullet)

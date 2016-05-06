@@ -28,13 +28,13 @@ func _fixed_process(delta):
 	if (movem.finished):
 		get_parent().player.movem.speedAdds -= speedBoost
 		self.queue_free()
-	if (!get_child(1).get_overlapping_bodies().empty()):
+	elif (!get_child(1).get_overlapping_bodies().empty()):
 		self.get_child(0).set_texture(null)
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 12):
 			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(50)
 		get_parent().player.movem.speedAdds -= speedBoost
 		self.queue_free()
-	if (!get_child(1).get_overlapping_areas().empty()):
+	elif (!get_child(1).get_overlapping_areas().empty()):
 		self.get_child(0).set_texture(null)
 		get_parent().player.movem.speedAdds -= speedBoost
 		self.queue_free()
