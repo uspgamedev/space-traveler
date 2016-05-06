@@ -6,11 +6,9 @@ var rotationVector = Vector2(0,0)
 var camera
 var camera3d
 var bar
-var skillPath = ["res://scenes/bullets/Skill4.xscn", "res://scenes/bullets/Skill3.xscn", "res://scenes/bullets/Skill2.xscn"]
-var skillCharges = [0, 0, 0]
-var skillCoolDown = [[3.5, -3.5], [2.0, -2.0], [5.0, -5.0]]
-var baCoolDown = [0.7, 0.0]
-var basicAttack = "res://scenes/bullets/Bullet.scn"
+var skillPath = ["res://scenes/bullets/BasicAttack1.xscn", "res://scenes/bullets/Skill4.xscn", "res://scenes/bullets/Skill3.xscn", "res://scenes/bullets/Skill2.xscn"]
+var skillCharges = [0, 0, 0, 0]
+var skillCoolDown = [[0.7, -0.7], [3.5, -3.5], [2.0, -2.0], [5.0, -5.0]]
 
 
 func _init():
@@ -22,6 +20,7 @@ func _ready():
 	var barScene = load("res://scenes/HealthBar.scn")
 	bar = barScene.instance()
 	bar.initBar(500.0)
+	movem.setSpeed(400)
 	add_child(bar)
 
 

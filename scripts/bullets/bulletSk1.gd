@@ -17,10 +17,10 @@ func _ready():
 	for skill in get_parent().skills :
 		if (skill[1] == (self.get_filename())):
 			index = get_parent().skills.find(skill)
-	print ("oi = ", get_parent().player.skillCharges[index])
 	if (get_parent().player.skillCharges[index] == -1) :
 		get_parent().player.skillCharges[index] = charges
 	get_parent().player.skillCharges[index] -= 1
+	get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
 	print ("oioi = ", get_parent().player.skillCharges[index])
 
 func _fixed_process(delta):

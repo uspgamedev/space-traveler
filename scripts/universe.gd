@@ -7,15 +7,9 @@ var didMove = 0
 var rightMouseIsPressed = 0
 var indicatorRadious = 30.0
 var lastMovePos = Vector2()
-var skills = [
-[0],
-[0],
-[0]
-]
-var planets = [
-["p1", -800, -800, 0],
-["p2",1000,1000, 0]
-]
+var skills = [[0], [0], [0], [0]]
+var planets = [["p1", -800, -800, 0], ["p2",1000,1000, 0]]
+var didSetBA = 0
 
 func _init():
 	set_process_input(true)
@@ -35,6 +29,8 @@ func _init():
 	initSkill()
 
 func _process(delta):
+	if (didSetBA != 1) :
+		doSkill(0)
 	frames += 1
 	update()
 	if (frames%10 == 0) :
@@ -77,11 +73,11 @@ func _input(ev):
 	#print(ev)
 	if (ev.type==InputEvent.KEY):
 		if (ev.scancode == 81) :
-			doSkill(0)
-		elif (ev.scancode == 87) :
 			doSkill(1)
-		elif (ev.scancode == 69) :
+		elif (ev.scancode == 87) :
 			doSkill(2)
+		elif (ev.scancode == 69) :
+			doSkill(3)
 	if (ev.type==InputEvent.MOUSE_BUTTON):
 		print(ev.button_index)
 		if (ev.is_pressed() && ev.button_index == 2):
@@ -90,7 +86,7 @@ func _input(ev):
 			lastMovePos = ev.pos - get_viewport().get_rect().size/2 + player.get_child(2).get_camera_screen_center()
 			indicatorRadious = 30.0
 			if (not didMove) :
-				player.baCoolDown[1] -= player.baCoolDown[0]*0.4
+				player.skillCoolDown[0][1] -= player.skillCoolDown[0][0]*0.4
 				didMove = 1
 		else:
 			rightMouseIsPressed = 0
@@ -98,6 +94,7 @@ func _input(ev):
 			var projectile = getBullet()
 			print(projectile)
 			if (projectile != "noBullet") :
+				didSetBA = 0
 				var bulletScene = load(projectile)
 				var bullet = bulletScene.instance()
 				add_child(bullet)
@@ -118,6 +115,9 @@ func initSkill ():
 
 func doSkill (i):
 	if (player.skillCoolDown[i][0] + player.skillCoolDown[i][1] < OS.get_ticks_msec()/1000.0) :
+		if (i == 0) :
+			didSetBA = 1
+			didMove = 0
 		var skPath = player.skillPath[i]
 		var skillScene = load(skPath)
 		var skill = skillScene.instance()
@@ -131,23 +131,14 @@ func setBullet (i, bltPath):
 	skills[i][1] = bltPath
 	player.skillCharges[i] = -1
 
-
-
 func getBullet () :
 	for skill in skills :
 		if (skill[0] == 1): 
 			if ((player.skillCharges[skills.find(skill)] > 0 or player.skillCharges[skills.find(skill)] == -1) and player.skillCoolDown[skills.find(skill)][0] + player.skillCoolDown[skills.find(skill)][1] < OS.get_ticks_msec()/1000.0) :
-				player.skillCoolDown[skills.find(skill)][1] = OS.get_ticks_msec()/1000.0
 				return skill[1]
 			else :
 				player.skillCharges[skills.find(skill)] = 0
-	
-	if (player.baCoolDown[0] + player.baCoolDown[1] < OS.get_ticks_msec()/1000.0) :
-		player.baCoolDown[1] = OS.get_ticks_msec()/1000.0
-		didMove = 0
-		return player.basicAttack
-	else :
-		return "noBullet"
+	return "noBullet"
 
 func putToSleep (sce, value) :
 	sce.set_process (!value)

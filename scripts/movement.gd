@@ -4,9 +4,15 @@ extends Node
 var target
 var remaining
 
+var targetDash
+var remainingDash
+
 var ociStart
 var ociTarget
 var period
+
+var speedAdds = 0
+var speedMulti = 1
 
 var speed0 = 500.0
 var speed = 500.0
@@ -33,9 +39,9 @@ func _ready():
 func _process(delta):
 	var ds
 	del = delta
-	remaining = remaining - target.normalized()*speed*delta
+	remaining = remaining - target.normalized()*(speed+speedAdds)*speedMulti*delta
 	if (target - remaining).length() < target.length():
-		ds = target.normalized()*speed*delta
+		ds = target.normalized()*(speed+speedAdds)*speedMulti*delta
 		direction = (target - get_parent().get_pos()).normalized()
 		get_parent().move(ds)
 		if (get_parent().is_colliding()):
@@ -47,6 +53,9 @@ func _process(delta):
 		rotate(target)
 
 func setSpeed (var sp):
+	speed0 = sp
+
+func setFixedSpeed (var sp):
 	speed0 = sp
 
 func moveTo(pos, s = speed0):
