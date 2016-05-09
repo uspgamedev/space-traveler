@@ -23,9 +23,6 @@ func _init():
 		var planetScene = load("res://scenes/planets/"+planet[0]+".xscn")
 		p = planetScene.instance()
 		planet.append(p)
-		add_child(p)
-		planet[4].set_pos(Vector2(planet[1], planet[2]))
-		planet[4].set_process(true)
 	initSkill()
 
 func _process(delta):
@@ -61,16 +58,17 @@ func checkPlanets ():
 		if (i == mim_index) :
 			if (planets[i][3] == 0):
 				planets[i][3] = 1
-				putToSleep(planets[i][4], false)
-				planets[i][4].set_hidden(false)
+				var planetScene = load("res://scenes/planets/"+planets[i][0]+".xscn")
+				planets[i][4] = planetScene.instance()
+				planets[i][4].set_pos(Vector2(planets[i][1], planets[i][2]))
+				planets[i][4].set_process(true)
+				add_child(planets[i][4])
 		else :
-			planets[i][3] = 0
-			if ((planets[i][4].is_processing()) == true) :
-				putToSleep(planets[i][4], true)
-				planets[i][4].set_hidden (true)
+			if (planets[i][3] == 1) :
+				planets[i][3] = 0
+				planets[i][4].queue_free()
 
 func _input(ev):
-	#print(ev)
 	if (ev.type==InputEvent.KEY):
 		if (ev.scancode == 81) :
 			doSkill(1)
@@ -95,19 +93,14 @@ func _input(ev):
 			print(projectile)
 			didSetBA = 0
 			if (projectile != "noBullet") :
-				var bulletScene = load(projectile)
+				var bulletScene = load(projectile[0])
 				var bullet = bulletScene.instance()
 				add_child(bullet)
-				bullet.setPosition(player.get_pos(), ev.pos - get_viewport().get_rect().size/2)
+				bullet.shoot(player.get_pos(), ev.pos - get_viewport().get_rect().size/2, projectile[1])
 	if (ev.type==InputEvent.MOUSE_MOTION and rightMouseIsPressed == 1): 
 		player.get_child(0).moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
 		lastMovePos = ev.pos - get_viewport().get_rect().size/2 + player.get_child(2).get_camera_screen_center()
 		indicatorRadious = 30.0
-
-func isInRange (playerPos, planetPos):
-	if ((planetPos - playerPos).length() < 600):
-		return 1
-	return 0
 
 func initSkill ():
 	for skill in skills :
@@ -135,7 +128,7 @@ func getBullet () :
 	for skill in skills :
 		if (skill[0] == 1): 
 			if ((player.skillCharges[skills.find(skill)] > 0 or player.skillCharges[skills.find(skill)] == -1) and player.skillCoolDown[skills.find(skill)][0] + player.skillCoolDown[skills.find(skill)][1] < OS.get_ticks_msec()/1000.0) :
-				return skill[1]
+				return [skill[1], skills.find(skill)]
 			else :
 				player.skillCharges[skills.find(skill)] = 0
 	return "noBullet"
@@ -144,6 +137,11 @@ func putToSleep (sce, value) :
 	sce.set_process (!value)
 	for chi in  sce.get_children () :
 		putToSleep (chi, value)
+
+func killAll (sce) :
+	for chi in  sce.get_children () :
+		killAll (chi)
+	sce.queue_free ()
 
 func _ready():
 	checkPlanets()

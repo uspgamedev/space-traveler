@@ -14,15 +14,7 @@ func _init():
 	set_fixed_process(true)
 
 func _ready():
-	movem = self.get_child(2)
-	movem.setSpeed(-800.0)
-	for skill in get_parent().skills :
-		if (skill[1] == (self.get_filename())):
-			index = get_parent().skills.find(skill)
-	if (get_parent().player.skillCharges[index] == -1) :
-		get_parent().player.skillCharges[index] = charges
-	get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
-	get_parent().player.skillCharges[index] -= 1
+	pass
 
 func _fixed_process(delta):
 	var pos = self.get_parent().player.get_pos()
@@ -49,7 +41,15 @@ func _draw():
 	#print("v1 = ",(255.0*(acel/(700.0+acel)))/255.0)
 	#print("v2 = ",(255.0*((acel-200.0)/acel)/255.0))
 
-func setPosition(pos, dir):
+func shoot (pos, dir, index):
+	movem = self.get_child(2)
+	movem.setSpeed(-800.0)
+	if (index != -1):
+		if (get_parent().player.skillCharges[index] == -1) :
+			get_parent().player.skillCharges[index] = charges
+		get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
+		get_parent().player.skillCharges[index] -= 1
+	
 	direction = dir
 	movem.shouldRotate = true
 	movem.setRotScene(self.get_child(0))

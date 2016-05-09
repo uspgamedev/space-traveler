@@ -12,15 +12,33 @@ var bullets = []
 var endTime = 0.25
 
 func _ready():
+	pass
+
+func _process(delta):
+	if endTime <= OS.get_ticks_msec()/1000.0:
+		self.queue_free()
+	update()
+
+func _draw():
+	var curIndicatorRadious = (endTime-OS.get_ticks_msec()/1000.0)*indicatorRadious
+	for i in bullets:
+		draw_circle(i.get_pos(), curIndicatorRadious, Color(178.0/255, 89.0/255, 255.0/255, 0.5))
+
+func collideWith(object):
+	for i in collisions:
+		if (i == object):
+			return
+	object.bar.takeDamage(200)
+	collisions.append(object)
+
+func shoot (pos, dir, index):
+	if (index != -1) :
+		if (get_parent().player.skillCharges[index] == -1) :
+			get_parent().player.skillCharges[index] = charges
+		get_parent().player.skillCharges[index] -= 1
+		get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
+		endTime += OS.get_ticks_msec()/1000.0
 	set_process(true)
-	for skill in get_parent().skills :
-		if (skill[1] == (self.get_filename())):
-			index = get_parent().skills.find(skill)
-	if (get_parent().player.skillCharges[index] == -1) :
-		get_parent().player.skillCharges[index] = charges
-	get_parent().player.skillCharges[index] -= 1
-	get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
-	endTime += OS.get_ticks_msec()/1000.0
 	var i
 	bullet = load("res://scenes/bullets/BulletSk4.xscn")
 	randomize()
@@ -42,22 +60,3 @@ func _ready():
 				b.setPos(positions[v] + get_parent().player.get_pos())
 				bullets.append(b)
 
-func _process(delta):
-	if endTime <= OS.get_ticks_msec()/1000.0:
-		self.queue_free()
-	update()
-	
-func _draw():
-	var curIndicatorRadious = (endTime-OS.get_ticks_msec()/1000.0)*indicatorRadious
-	for i in bullets:
-		draw_circle(i.get_pos(), curIndicatorRadious, Color(178.0/255, 89.0/255, 255.0/255, 0.5))
-	
-func collideWith(object):
-	for i in collisions:
-		if (i == object):
-			return
-	object.bar.takeDamage(200)
-	collisions.append(object)
-	
-func setPosition(pos, dir):
-	pass

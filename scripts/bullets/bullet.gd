@@ -13,16 +13,7 @@ func _init():
 	set_fixed_process(true)
 
 func _ready():
-	movem = self.get_child(2)
-	movem.setSpeed(1000.0)
-	for skill in get_parent().skills :
-		if (skill[1] == (self.get_filename())):
-			index = get_parent().skills.find(skill)
-	if (get_parent().player.skillCharges[index] == -1) :
-		get_parent().player.skillCharges[index] = charges
-	get_parent().player.skillCharges[index] -= 1
-	get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
-	get_parent().player.movem.speedAdds += speedBoost
+	pass
 
 func _fixed_process(delta):
 	if (movem.finished):
@@ -39,7 +30,15 @@ func _fixed_process(delta):
 		get_parent().player.movem.speedAdds -= speedBoost
 		self.queue_free()
 
-func setPosition(pos, dir):
+func shoot(pos, dir, index):
+	movem = self.get_child(2)
+	movem.setSpeed(1000.0)
+	if (index != -1):
+		if (get_parent().player.skillCharges[index] == -1) :
+			get_parent().player.skillCharges[index] = charges
+		get_parent().player.skillCharges[index] -= 1
+		get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
+	get_parent().player.movem.speedAdds += speedBoost
 	var newTransform = Matrix32(0, pos)
 	movem.moveTo(dir.normalized()*500)
 	self.set_transform(newTransform)
