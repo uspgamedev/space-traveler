@@ -6,7 +6,7 @@ var rotationVector = Vector2(0,0)
 var camera
 var camera3d
 var bar
-var skillPath = ["res://scenes/bullets/BasicAttack1.xscn", "res://scenes/bullets/Skill5.xscn", "res://scenes/bullets/Skill3.xscn", "res://scenes/bullets/Skill2.xscn"]
+var skillPath = [0, 0, 0, 0]#["res://scenes/bullets/BasicAttack1.xscn", "res://scenes/bullets/Skill5.xscn", "res://scenes/bullets/Skill3.xscn", "res://scenes/bullets/Skill2.xscn"]
 var skillCharges = [0, 0, 0, 0]
 var skillCoolDown = [[0.7, -0.7], [3.5, -3.5], [1.5, -1.5], [5.0, -5.0]]
 
@@ -23,10 +23,18 @@ func _ready():
 	movem.setSpeed(400)
 	add_child(bar)
 
-
 func Rotate (pos):
 	self.get_child(1).set_rot(atan2(pos.x, pos.y)+PI)
 	rotationVector = pos
+
+func GetSkills ():
+	pass
+
+func save():
+    var savedict = {
+        
+    }
+    return savedict
 
 func _process(delta):
 	pass

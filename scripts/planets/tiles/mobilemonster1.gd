@@ -31,6 +31,7 @@ func _process(delta):
 	if (count%period < 1):
 		shot(pos)
 	if (bar.curHp == 0):
+		self.get_parent().get_parent().player.skillPath[1] =  "res://scenes/bullets/Skill1.xscn"
 		self.queue_free()
 
 func shot (pos):

@@ -2,6 +2,7 @@
 extends Node2D
 
 var frames = 0
+var save
 var player
 var didMove = 0
 var rightMouseIsPressed = 0
@@ -17,6 +18,10 @@ func _init():
 	var playerScene = load("res://scenes/Player.scn")
 	player = playerScene.instance()
 	add_child(player)
+	var saveScene = load("res://scenes/Save.xscn")
+	save = saveScene.instance()
+	add_child(save)
+	save.load_game()
 	var name
 	for planet in planets :
 		var p
