@@ -10,7 +10,7 @@ var indicatorRadious = 30.0
 var lastMovePos = Vector2()
 var skills = [[0], [0], [0], [0]]
 var planets = [["p1", -800, -800, 0], ["p2",1000,1000, 0]]
-var didSetBA = 0
+var didSetBA = 1
 
 func _init():
 	set_process_input(true)
@@ -18,17 +18,22 @@ func _init():
 	var playerScene = load("res://scenes/Player.scn")
 	player = playerScene.instance()
 	add_child(player)
+	player.add_to_group("Persist", true)
 	var saveScene = load("res://scenes/Save.xscn")
 	save = saveScene.instance()
 	add_child(save)
-	save.load_game()
 	var name
 	for planet in planets :
 		var p
 		var planetScene = load("res://scenes/planets/"+planet[0]+".xscn")
 		p = planetScene.instance()
 		planet.append(p)
+
+func _ready():
+	save.load_game()
 	initSkill()
+	checkPlanets()
+	didSetBA = 0
 
 func _process(delta):
 	if (didSetBA != 1) :
@@ -147,7 +152,3 @@ func killAll (sce) :
 	for chi in  sce.get_children () :
 		killAll (chi)
 	sce.queue_free ()
-
-func _ready():
-	checkPlanets()
-	pass

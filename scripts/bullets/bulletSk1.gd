@@ -43,7 +43,6 @@ func shoot (pos, dir, index):
 	direction = dir
 	movem.shouldRotate = true
 	movem.setRotScene(self.get_child(0))
-	print (self.get_child(2).get_name())
 	var newTransform = Matrix32(0, pos)
 	movem.moveTo(dir.normalized()*200)
 	self.set_transform(newTransform)

@@ -31,10 +31,21 @@ func GetSkills ():
 	pass
 
 func save():
-    var savedict = {
-        
-    }
-    return savedict
+	var savedict = {
+		tag = "player",
+		filename = get_filename(),
+		skill0 = skillPath[0],
+		skill1 = skillPath[1],
+		skill2 = skillPath[2],
+		skill3 = skillPath[3],
+	}
+	return savedict
+
+func loadG(line):
+	skillPath[0] = line["skill0"]
+	skillPath[1] = line["skill1"]
+	skillPath[2] = line["skill2"]
+	skillPath[3] = line["skill3"]
 
 func _process(delta):
 	pass
