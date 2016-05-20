@@ -36,9 +36,7 @@ func _fixed_process(delta):
 func shoot (pos, dir, index):
 	movem = self.get_child(2)
 	movem.setSpeed(1000.0)
-	if (get_parent().player.skillCharges[index] == -1) :
-		get_parent().player.skillCharges[index] = charges
-	get_parent().player.skillCharges[index] -= 1
+	get_parent().player.skillCoolDown[index][2] = 1
 	get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
 	direction = dir
 	movem.shouldRotate = true

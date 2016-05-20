@@ -10,7 +10,7 @@ var indicatorRadious = 30.0
 var lastMovePos = Vector2()
 var skills = [[0], [0], [0], [0]]
 var planets = [["p1", -800, -800, 0], ["p2",1000,1000, 0]]
-var didSetBA = 1
+var projectiles = []
 
 func _init():
 	set_process_input(true)
@@ -33,10 +33,12 @@ func _ready():
 	save.load_game()
 	initSkill()
 	checkPlanets()
-	didSetBA = 0
 
 func _process(delta):
-	if (didSetBA != 1) :
+	if (projectiles.size() == 0) :
+		print ("g1")
+		print (projectiles)
+		print ("g2")
 		doSkill(0)
 	frames += 1
 	update()
@@ -87,7 +89,6 @@ func _input(ev):
 		elif (ev.scancode == 69) :
 			doSkill(3)
 	if (ev.type==InputEvent.MOUSE_BUTTON):
-		print(ev.button_index)
 		if (ev.is_pressed() && ev.button_index == 2):
 			rightMouseIsPressed = 1
 			player.get_child(0).moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
@@ -101,7 +102,6 @@ func _input(ev):
 		if (ev.is_pressed() && ev.button_index == 1):
 			var projectile = getBullet()
 			print(projectile)
-			didSetBA = 0
 			if (projectile != "noBullet") :
 				var bulletScene = load(projectile[0])
 				var bullet = bulletScene.instance()
@@ -114,33 +114,31 @@ func _input(ev):
 
 func initSkill ():
 	for skill in skills :
-		skill.append(player.skillPath[skills.find(skill)])
+		var skillInst = load(player.skillPath[skills.find(skill)]).instance()
+		add_child(skillInst)
+		skillInst.preSetup(skills.find(skill))
 
 func doSkill (i):
-	if (player.skillCoolDown[i][0] + player.skillCoolDown[i][1] < OS.get_ticks_msec()/1000.0) :
+	if (player.skillCoolDown[i][0] + player.skillCoolDown[i][1] < OS.get_ticks_msec()/1000.0 and player.skillCoolDown[i][2] == 1) :
 		if (i == 0) :
-			didSetBA = 1
 			didMove = 0
-		var skPath = player.skillPath[i]
-		var skillScene = load(skPath)
-		var skill = skillScene.instance()
+		var skill = load(player.skillPath[i]).instance()
 		add_child(skill)
 		skill.setup(i)
 
 func setBullet (i, bltPath):
-	for skill in skills :
-		skill[0] = 0
-	skills[i][0] = 1
-	skills[i][1] = bltPath
-	player.skillCharges[i] = -1
+	var nextBullet = [bltPath, i]
+	print("b p = ", projectiles, "nb = ", nextBullet)
+	projectiles.append(nextBullet)
 
 func getBullet () :
-	for skill in skills :
-		if (skill[0] == 1): 
-			if ((player.skillCharges[skills.find(skill)] > 0 or player.skillCharges[skills.find(skill)] == -1) and player.skillCoolDown[skills.find(skill)][0] + player.skillCoolDown[skills.find(skill)][1] < OS.get_ticks_msec()/1000.0) :
-				return [skill[1], skills.find(skill)]
-			else :
-				player.skillCharges[skills.find(skill)] = 0
+	print ("c")
+	print ("proj s = ",projectiles.size())
+	if ((not projectiles.empty()) and player.skillCoolDown[projectiles[projectiles.size()-1][1]][0] + player.skillCoolDown[projectiles[projectiles.size()-1][1]][1] < OS.get_ticks_msec()/1000.0) :
+		var nextBullet = projectiles[projectiles.size()-1]
+		print("gb.nb = ", nextBullet)
+		projectiles.remove(projectiles.size()-1)
+		return nextBullet
 	return "noBullet"
 
 func putToSleep (sce, value) :

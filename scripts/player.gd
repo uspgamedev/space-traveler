@@ -6,9 +6,8 @@ var rotationVector = Vector2(0,0)
 var camera
 var camera3d
 var bar
-var skillPath = [0, 0, 0, 0]#["res://scenes/bullets/BasicAttack1.xscn", "res://scenes/bullets/Skill5.xscn", "res://scenes/bullets/Skill3.xscn", "res://scenes/bullets/Skill2.xscn"]
-var skillCharges = [0, 0, 0, 0]
-var skillCoolDown = [[0.7, -0.7], [3.5, -3.5], [1.5, -1.5], [5.0, -5.0]]
+var skillPath = [0, 0, 0, 0]
+var skillCoolDown = [[0.0, -0.0, 0], [0.0, -0.0, 0], [0.0, -0.0, 0], [0.0, -0.0, 0]]
 
 
 func _init():
