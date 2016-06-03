@@ -36,9 +36,6 @@ func _ready():
 
 func _process(delta):
 	if (projectiles.size() == 0) :
-		print ("g1")
-		print (projectiles)
-		print ("g2")
 		doSkill(0)
 	frames += 1
 	update()
@@ -52,6 +49,7 @@ func _process(delta):
 		player.queue_free()
 		player = playerScene.instance()
 		add_child(player)
+	player.bar.curHp += 0.25
 
 func _draw():
 	if (indicatorRadious > 0):

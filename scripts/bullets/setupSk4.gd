@@ -28,7 +28,7 @@ func collideWith(object):
 	for i in collisions:
 		if (i == object):
 			return
-	object.bar.takeDamage(200)
+	object.bar.takeDamage(200+1.5*get_parent().player.AP)
 	collisions.append(object)
 
 func shoot (pos, dir, index):

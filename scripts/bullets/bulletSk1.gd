@@ -15,19 +15,19 @@ func _ready():
 
 func _fixed_process(delta):
 	if (movem.finished):
-		var bulletScene = load("res://scenes/bullets/Bullet.scn")
+		var bulletScene = load("res://scenes/bullets/Bullet3.xscn")
 		ndirection = direction.rotated(PI/8)
 		for x in range(8) :
 			var bullet = bulletScene.instance()
 			self.get_parent().add_child(bullet)
-			bullet.shoot(self.get_pos() + ndirection.normalized()*180 - direction.normalized()*80, ndirection, -1)
+			bullet.shoot(self.get_pos() + ndirection.normalized()*10 - direction.normalized()*10, ndirection, -1)
 			ndirection = ndirection.rotated(-PI/32)
 		
 		self.queue_free()
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		self.get_child(0).set_texture(null)
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 12):
-			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(100)
+			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(100+1.3*get_parent().player.AD+1.3*get_parent().player.AP)
 		self.queue_free()
 	if (!get_child(1).get_overlapping_areas().empty()):
 		self.get_child(0).set_texture(null)

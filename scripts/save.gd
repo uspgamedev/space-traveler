@@ -10,7 +10,6 @@ func save_game():
 	
 	var savenodes = get_tree().get_nodes_in_group("Persist")
 	for i in savenodes:
-		print ("oi")
 		var nodedata = i.save()
 		savegame.store_line(nodedata.to_json())
 	savegame.close()
