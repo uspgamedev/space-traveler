@@ -10,6 +10,7 @@ var collisions = []
 var indicatorRadious = 8*4
 var bullets = []
 var endTime = 0.25
+var bulDir
 
 func _ready():
 	pass
@@ -28,10 +29,11 @@ func collideWith(object):
 	for i in collisions:
 		if (i == object):
 			return
-	object.bar.takeDamage(200+1.5*get_parent().player.AP)
+	object.bar.takeDamage(200+1.5*get_parent().player.AP,2, bulDir)
 	collisions.append(object)
 
 func shoot (pos, dir, index):
+	bulDir = dir
 	if (index != -1) :
 		get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
 		get_parent().player.skillCoolDown[index][2] = 1

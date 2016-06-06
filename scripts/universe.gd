@@ -49,7 +49,8 @@ func _process(delta):
 		player.queue_free()
 		player = playerScene.instance()
 		add_child(player)
-	player.bar.curHp += 0.25
+		save.load_game()
+		initSkill()
 
 func _draw():
 	if (indicatorRadious > 0):

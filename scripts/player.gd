@@ -30,7 +30,7 @@ func _ready():
 	movem = self.get_child(0)
 	var barScene = load("res://scenes/HealthBar.scn")
 	bar = barScene.instance()
-	bar.initBar(1400.0)
+	bar.initBar(500.0)
 	movem.setSpeed(400)
 	add_child(bar)
 
@@ -44,7 +44,7 @@ func GetSkills ():
 func getLevel ():
 	var xpLeft = experience
 	level = 0
-	while (xpLeft > baseLvXp*pow(xpScale,level)) :
+	while (xpLeft >= baseLvXp*pow(xpScale,level)) :
 		xpLeft -= baseLvXp*pow(xpScale,level)
 		level += 1
 	print ("level = ", level)

@@ -22,12 +22,14 @@ func _fixed_process(delta):
 	elif (!get_child(1).get_overlapping_bodies().empty()):
 		self.get_child(0).set_texture(null)
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 12):
-			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(50+0.8*get_parent().player.AD+1.0*get_parent().player.AP)
+			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(50+0.8*get_parent().player.AD, 1, direction)
+			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(1.0*get_parent().player.AP, 2, direction)
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() != 9):
 			get_parent().player.movem.speedAdds -= speedBoost
 			self.queue_free()
 
 func shoot(pos, dir, index):
+	direction = dir
 	movem = self.get_child(2)
 	movem.setSpeed(1000.0)
 	if (index != -1):

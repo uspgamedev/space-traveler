@@ -22,13 +22,14 @@ func _fixed_process(delta):
 		print(get_child(1).get_overlapping_bodies()[0].get_collision_mask())
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 6):
 			print ("flag")
-			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(20)
+			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(20, 1, direction)
 		self.queue_free()
 	if (!get_child(1).get_overlapping_areas().empty()):
 		self.get_child(0).set_texture(null)
 		self.queue_free()
 
 func setPosition(pos, dir):
+	direction = dir
 	var newTransform = Matrix32(0, pos)
 	target = dir.normalized()*1600
 	remaining = target

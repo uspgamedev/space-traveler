@@ -33,7 +33,8 @@ func setup (i):
 	oldSpeed = get_parent().player.movem.speed
 	get_parent().player.skillCoolDown[0][0] *= 0.1
 	get_parent().player.bar.armor += 50
-	get_parent().player.bar.barrier += 400
+	get_parent().player.bar.barrier += 300
+	get_parent().player.bar.curHp += 200
 	get_parent().player.movem.speedMulti *= 1.0/3
 
 func _fixed_process(delta):

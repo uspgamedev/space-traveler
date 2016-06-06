@@ -18,7 +18,6 @@ func _ready():
 
 func _fixed_process(delta):
 	var pos = self.get_parent().player.get_pos()
-	#print(movem.target, "--", movem.remaining)
 	movem.moveTo(pos)
 	movem.setSpeed(movem.speed0+acel*delta)
 	acel+=15.0
@@ -27,7 +26,7 @@ func _fixed_process(delta):
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		for i in get_child(1).get_overlapping_bodies():
 			if (i.get_collision_mask() == 12 and not (i in alreadyCollided)):
-				i.bar.takeDamage(acel*(1+0.1*get_parent().player.AP)/10)
+				i.bar.takeDamage(acel*(1+0.1*get_parent().player.AP)/10, 2, direction)
 				alreadyCollided.append(i)
 	for j in alreadyCollided:
 		if (not j in get_child(1).get_overlapping_bodies()):
@@ -37,9 +36,7 @@ func _fixed_process(delta):
 	update()
 
 func _draw():
-	draw_circle(Vector2(0,0), indicatorRadious, Color((255.0*((acel-400.0)/acel)/255.0), 80.0/255, 80.0/255, 0.5))
-	#print("v1 = ",(255.0*(acel/(700.0+acel)))/255.0)
-	#print("v2 = ",(255.0*((acel-200.0)/acel)/255.0))
+	draw_circle(Vector2(0,0), indicatorRadious, Color((255.0*((acel-500.0)/acel)/255.0), 80.0/255, 80.0/255, 0.8))
 
 func shoot (pos, dir, index):
 	movem = self.get_child(2)
