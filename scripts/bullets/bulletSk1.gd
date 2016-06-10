@@ -27,8 +27,8 @@ func _fixed_process(delta):
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		self.get_child(0).set_texture(null)
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 12):
-			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(100+1.3*get_parent().player.AD,1, direction)
-			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(1.3*get_parent().player.AP,2, direction)
+			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(100+1.3*get_parent().player.bar.AD,1, direction)
+			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(1.3*get_parent().player.bar.AP,2, direction)
 		self.queue_free()
 	if (!get_child(1).get_overlapping_areas().empty()):
 		self.get_child(0).set_texture(null)

@@ -20,6 +20,9 @@ func preSetup (i) :
 	get_parent().player.skillCoolDown[i][2] = 1
 	get_parent().player.skillCoolDown[i][1] = - 5.0
 	get_parent().player.skillCoolDown[i][0] = 5.0
+	get_parent().player.bar.AD += 50
+	get_parent().player.bar.armor += 30
+	get_parent().player.bar.armor += 30
 	self.queue_free()
 
 func setup (i):
@@ -33,8 +36,8 @@ func setup (i):
 	oldSpeed = get_parent().player.movem.speed
 	get_parent().player.skillCoolDown[0][0] *= 0.1
 	get_parent().player.bar.armor += 50
-	get_parent().player.bar.barrier += 300
-	get_parent().player.bar.curHp += 200
+	get_parent().player.bar.barrier += 100 + 0.3*(get_parent().player.bar.maxHp - get_parent().player.bar.curHp)
+	get_parent().player.bar.curHp += 0.3*(get_parent().player.bar.maxHp - get_parent().player.bar.curHp)
 	get_parent().player.movem.speedMulti *= 1.0/3
 
 func _fixed_process(delta):

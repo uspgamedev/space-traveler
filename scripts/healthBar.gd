@@ -8,6 +8,9 @@ var aprHp = 1.0
 var healthRegen = 0.025
 var armor = 0.0
 var shield = 0.0
+var AP = 0.0
+var AD = 0.0
+var speed = 0.0
 var barPos
 
 func _ready():
@@ -23,9 +26,9 @@ func takeDamage(damage, nature, dir):
 	var DamageScene = load("res://scenes/DamageLabel.xscn")
 	var Damage = DamageScene.instance()
 	add_child(Damage)
-	Damage.showDamage (damage, dir, nature)
 	if nature == 1 :
 		damage = damage*(100.0/(100.0+armor))
+		Damage.showDamage (damage, dir, nature)
 		if barrier > 0 :
 			barrier -= damage
 			if barrier < 0 :
@@ -36,6 +39,7 @@ func takeDamage(damage, nature, dir):
 		curHp -= damage
 	elif nature == 2 :
 		damage = damage*(100.0/(100.0+shield))
+		Damage.showDamage (damage, dir, nature)
 		if barrier > 0 :
 			barrier -= damage
 			if barrier < 0 :

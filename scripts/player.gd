@@ -15,12 +15,6 @@ var xpScale = 1.2
 var level = 0
 
 var experience = 0
-var health = 0.0
-var armor = 0.0
-var shield = 0.0
-var AP = 0.0
-var AD = 0.0
-var speed = 0.0
 
 func _init():
 	set_process(true)
@@ -49,16 +43,20 @@ func getLevel ():
 		level += 1
 	print ("level = ", level)
 	
-	health = 500.0 + level*150.0
-	armor = 0 + level*5.0
-	shield = 0 + level*5.0
-	AP = 0.0 + level*8.0
-	AD = 0.0 + level*8.0
-	speed = 350.0 + level*5.0
-	bar.maxHp = health
-	bar.armor = armor
-	bar.shield = shield
-	movem.setSpeed(speed)
+	bar.maxHp = 500.0 + level*80.0
+	bar.armor = 0 + level*4.0
+	bar.shield = 0 + level*4.0
+	bar.AP = 0.0 + level*7.0
+	bar.AD = 0.0 + level*7.0
+	bar.speed = 350.0 + level*4.0
+	movem.setSpeed(bar.speed)
+
+func initSkill ():
+	for skill in get_parent().skills :
+		var skillInst = load(skillPath[get_parent().skills.find(skill)]).instance()
+		get_parent().add_child(skillInst)
+		skillInst.preSetup(get_parent().skills.find(skill))
+	movem.setSpeed(bar.speed)
 
 func save():
 	var savedict = {
@@ -80,6 +78,7 @@ func loadG(line):
 	skillPath[3] = line["skill3"]
 	getLevel()
 	bar.curHp = bar.maxHp
+	initSkill()
 
 func _process(delta):
 	pass

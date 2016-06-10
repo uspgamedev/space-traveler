@@ -16,8 +16,10 @@ func _ready():
 	movem.setRotScene(self.get_child(1))
 	var barScene = load("res://scenes/HealthBar.scn")
 	bar = barScene.instance()
-	bar.initBar(500.0)
+	bar.initBar(800.0)
 	add_child(bar)
+	bar.armor +=100
+	bar.shield +=100
 
 
 func setPeriod (sp):
@@ -27,13 +29,13 @@ func _process(delta):
 	count += 1
 	var pos = self.get_parent().get_parent().player.get_pos()
 	movem.moveTo(pos - self.get_parent().get_pos())
-	#movem.ocilateBetween (Vector2(5, 0), 1)
 	if (count%period < 1):
 		shot(pos)
 	if (bar.curHp == 0):
 		self.get_parent().get_parent().player.skillPath[1] =  "res://scenes/bullets/Skill1.xscn"
 		get_parent().get_parent().player.experience +=25
 		get_parent().get_parent().player.getLevel()
+		get_parent().get_parent().player.initSkill()
 		self.get_parent().get_parent().save.save_game()
 		self.queue_free()
 

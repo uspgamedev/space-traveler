@@ -17,6 +17,8 @@ func preSetup (i) :
 	get_parent().player.skillCoolDown[i][1] = - 2.0
 	get_parent().player.skillCoolDown[i][0] = 2.0
 	get_parent().skills[i].append(self.get_path())
+	get_parent().player.bar.AD += 30
+	get_parent().player.bar.armor += 20
 	self.queue_free()
 
 func setup (i) :

@@ -31,7 +31,6 @@ func _init():
 
 func _ready():
 	save.load_game()
-	initSkill()
 	checkPlanets()
 
 func _process(delta):
@@ -50,7 +49,6 @@ func _process(delta):
 		player = playerScene.instance()
 		add_child(player)
 		save.load_game()
-		initSkill()
 
 func _draw():
 	if (indicatorRadious > 0):
@@ -110,12 +108,6 @@ func _input(ev):
 		player.get_child(0).moveTo(ev.pos - get_viewport().get_rect().size/2 + player.get_pos())
 		lastMovePos = ev.pos - get_viewport().get_rect().size/2 + player.get_child(2).get_camera_screen_center()
 		indicatorRadious = 30.0
-
-func initSkill ():
-	for skill in skills :
-		var skillInst = load(player.skillPath[skills.find(skill)]).instance()
-		add_child(skillInst)
-		skillInst.preSetup(skills.find(skill))
 
 func doSkill (i):
 	if (player.skillCoolDown[i][0] + player.skillCoolDown[i][1] < OS.get_ticks_msec()/1000.0 and player.skillCoolDown[i][2] == 1) :
