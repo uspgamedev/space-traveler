@@ -18,7 +18,7 @@ func preSetup (i) :
 	get_parent().player.skillCoolDown[i][0] = 4.0
 	get_parent().skills[i].append(self.get_path())
 	get_parent().player.bar.AP += 70
-	self.queue_free()
+	#self.queue_free()
 
 func setup (i) :
 	set_fixed_process(true)

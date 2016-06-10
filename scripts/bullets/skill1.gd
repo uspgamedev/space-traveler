@@ -19,10 +19,11 @@ func preSetup (i) :
 	get_parent().skills[i].append(self.get_path())
 	get_parent().player.bar.AD += 30
 	get_parent().player.bar.armor += 20
-	self.queue_free()
+	#self.queue_free()
 
 func setup (i) :
 	set_process(true)
+	self.get_child(0).queue_free()
 	index = i
 	get_parent().player.skillCoolDown[index][2] = 0
 	index = i

@@ -9,10 +9,13 @@ var bar
 
 var skillPath = [0, 0, 0, 0]
 var skillCoolDown = [[0.0, -0.0, 0], [0.0, -0.0, 0], [0.0, -0.0, 0], [0.0, -0.0, 0]]
+var skillPre = [null, null, null, null]
 
 var baseLvXp = 100
 var xpScale = 1.2
 var level = 0
+
+var hud
 
 var experience = 0
 
@@ -53,9 +56,12 @@ func getLevel ():
 
 func initSkill ():
 	for skill in get_parent().skills :
-		var skillInst = load(skillPath[get_parent().skills.find(skill)]).instance()
-		get_parent().add_child(skillInst)
-		skillInst.preSetup(get_parent().skills.find(skill))
+		var newSkillPre = skillPre[get_parent().skills.find(skill)]
+		if (newSkillPre != null and weakref(newSkillPre).get_ref()) :
+			skillPre[get_parent().skills.find(skill)].queue_free()
+		skillPre[get_parent().skills.find(skill)] = load(skillPath[get_parent().skills.find(skill)]).instance()
+		get_parent().add_child(skillPre[get_parent().skills.find(skill)])
+		skillPre[get_parent().skills.find(skill)].preSetup(get_parent().skills.find(skill))
 	movem.setSpeed(bar.speed)
 
 func save():
@@ -79,6 +85,10 @@ func loadG(line):
 	getLevel()
 	bar.curHp = bar.maxHp
 	initSkill()
+	var hudScene = load("res://scenes/Hud.xscn")
+	hud = hudScene.instance()
+	add_child(hud)
+	hud.initHud(skillPre)
 
 func _process(delta):
 	pass

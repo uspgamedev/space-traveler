@@ -19,7 +19,7 @@ func preSetup (i) :
 	get_parent().skills[i].append(self.get_path())
 	get_parent().player.bar.AP += 20
 	get_parent().player.bar.speed += 50
-	self.queue_free()
+	#self.queue_free()
 
 func setup (i) :
 	set_process(true)

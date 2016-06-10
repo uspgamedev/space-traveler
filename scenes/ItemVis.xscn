@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<resource_file type="PackedScene" subresource_count="3" version="2.0" version_name="Godot Engine v2.0.stable.official">
-	<ext_resource path="res://scripts/bullets/skill1.gd" type="Script" index="0"></ext_resource>
-	<ext_resource path="res://striking-balls.png" type="Texture" index="1"></ext_resource>
+<resource_file type="PackedScene" subresource_count="2" version="2.0" version_name="Godot Engine v2.0.stable.official">
+	<ext_resource path="res://scripts/itemVis.gd" type="Script" index="0"></ext_resource>
 	<main_resource>
 		<dictionary name="_bundled" shared="false">
 			<string> "conn_count" </string>
@@ -12,7 +11,7 @@
 			<array  len="0" shared="false">
 			</array>
 			<string> "names" </string>
-			<string_array  len="11">
+			<string_array  len="10">
 				<string> "Node2D" </string>
 				<string> "script/script" </string>
 				<string> "TextureFrame" </string>
@@ -23,7 +22,6 @@
 				<string> "focus/stop_mouse" </string>
 				<string> "size_flags/horizontal" </string>
 				<string> "size_flags/vertical" </string>
-				<string> "texture" </string>
 			</string_array>
 			<string> "node_count" </string>
 			<int> 2 </int>
@@ -31,15 +29,14 @@
 			<array  len="0" shared="false">
 			</array>
 			<string> "nodes" </string>
-			<int_array  len="32"> 				-1, -1, 0, 0, -1, 1, 1, 0, 0, 0, 0, 2, 2, -1, 8, 3, 1, 4, 1, 5, 2, 6, 3, 7, 3, 8, 4, 9, 4, 10, 5, 0 </int_array>
+			<int_array  len="30"> 				-1, -1, 0, 0, -1, 1, 1, 0, 0, 0, 0, 2, 2, -1, 7, 3, 1, 4, 1, 5, 2, 6, 3, 7, 3, 8, 4, 9, 4, 0 </int_array>
 			<string> "variants" </string>
-			<array  len="6" shared="false">
+			<array  len="5" shared="false">
 				<resource  external="0">  </resource>
 				<real> 40 </real>
 				<vector2> 0.15, 0.15 </vector2>
 				<bool> True </bool>
 				<int> 2 </int>
-				<resource  external="1">  </resource>
 			</array>
 			<string> "version" </string>
 			<int> 2 </int>

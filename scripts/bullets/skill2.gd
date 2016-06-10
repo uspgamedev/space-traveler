@@ -23,7 +23,7 @@ func preSetup (i) :
 	get_parent().player.bar.AD += 50
 	get_parent().player.bar.armor += 30
 	get_parent().player.bar.armor += 30
-	self.queue_free()
+	#self.queue_free()
 
 func setup (i):
 	set_fixed_process(true)
