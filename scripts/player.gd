@@ -58,6 +58,7 @@ func initSkill ():
 	for skill in get_parent().skills :
 		var newSkillPre = skillPre[get_parent().skills.find(skill)]
 		if (newSkillPre != null and weakref(newSkillPre).get_ref()) :
+			print("ggizi")
 			skillPre[get_parent().skills.find(skill)].queue_free()
 		skillPre[get_parent().skills.find(skill)] = load(skillPath[get_parent().skills.find(skill)]).instance()
 		get_parent().add_child(skillPre[get_parent().skills.find(skill)])
@@ -86,6 +87,8 @@ func loadG(line):
 	bar.curHp = bar.maxHp
 	initSkill()
 	var hudScene = load("res://scenes/Hud.xscn")
+	if (hud != null and weakref(hud).get_ref()) :
+		hud.queue_free()
 	hud = hudScene.instance()
 	add_child(hud)
 	hud.initHud(skillPre)

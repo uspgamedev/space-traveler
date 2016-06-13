@@ -20,8 +20,9 @@ func preSetup (i) :
 
 func setup (i) :
 	set_process(true)
+	self.get_child(0).queue_free()
 	index = i
-	get_parent().player.skillCoolDown[i][2] = 0
+	get_parent().player.skillCoolDown[i][2] = 1
 	get_parent().setBullet(i, "res://scenes/bullets/Bullet.scn")
 	finished = 1
 

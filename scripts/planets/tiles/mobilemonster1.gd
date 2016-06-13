@@ -34,9 +34,8 @@ func _process(delta):
 	if (bar.curHp == 0):
 		self.get_parent().get_parent().player.skillPath[1] =  "res://scenes/bullets/Skill1.xscn"
 		get_parent().get_parent().player.experience +=25
-		get_parent().get_parent().player.getLevel()
-		get_parent().get_parent().player.initSkill()
 		self.get_parent().get_parent().save.save_game()
+		self.get_parent().get_parent().save.load_game()
 		self.queue_free()
 
 func shot (pos):

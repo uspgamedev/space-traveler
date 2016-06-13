@@ -22,23 +22,25 @@ func _fixed_process(delta):
 			self.get_parent().add_child(bullet)
 			bullet.shoot(self.get_pos() + ndirection.normalized()*10 - direction.normalized()*10, ndirection, -1)
 			ndirection = ndirection.rotated(-PI/32)
-		
+		get_parent().player.skillCoolDown[index][2] = 1
 		self.queue_free()
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		self.get_child(0).set_texture(null)
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 12):
 			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(100+1.3*get_parent().player.bar.AD,1, direction)
 			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(1.3*get_parent().player.bar.AP,2, direction)
+		get_parent().player.skillCoolDown[index][2] = 1
 		self.queue_free()
 	if (!get_child(1).get_overlapping_areas().empty()):
 		self.get_child(0).set_texture(null)
+		get_parent().player.skillCoolDown[index][2] = 1
 		self.queue_free()
 
-func shoot (pos, dir, index):
+func shoot (pos, dir, idx):
+	index = idx
 	direction = dir
 	movem = self.get_child(2)
 	movem.setSpeed(1000.0)
-	get_parent().player.skillCoolDown[index][2] = 1
 	get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
 	direction = dir
 	movem.shouldRotate = true

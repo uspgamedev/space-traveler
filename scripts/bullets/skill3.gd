@@ -23,6 +23,7 @@ func preSetup (i) :
 
 func setup (i):
 	index = i
+	self.get_child(0).queue_free()
 	#get_parent().player.skillCoolDown[index][2] = 0
 	get_parent().player.skillCoolDown[i][1] = OS.get_ticks_msec()/1000.0
 	#get_parent().player.skillCoolDown[index][2] = 1

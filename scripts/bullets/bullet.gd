@@ -18,6 +18,7 @@ func _ready():
 func _fixed_process(delta):
 	if (movem.finished):
 		get_parent().player.movem.speedAdds -= speedBoost
+		get_parent().player.skillCoolDown[index][2] = 1
 		self.queue_free()
 	elif (!get_child(1).get_overlapping_bodies().empty()):
 		self.get_child(0).set_texture(null)
@@ -25,14 +26,16 @@ func _fixed_process(delta):
 			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(50+get_parent().player.bar.AD, 1, direction)
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() != 9):
 			get_parent().player.movem.speedAdds -= speedBoost
+			get_parent().player.skillCoolDown[index][2] = 1
 			self.queue_free()
 
-func shoot(pos, dir, index):
+func shoot(pos, dir, idx):
+	index = idx
 	direction = dir
 	movem = self.get_child(2)
 	movem.setSpeed(1000.0)
 	if (index != -1):
-		get_parent().player.skillCoolDown[index][2] = 1
+		get_parent().player.skillCoolDown[index][2] = 0
 		get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
 	get_parent().player.movem.speedAdds += speedBoost
 	var newTransform = Matrix32(0, pos)

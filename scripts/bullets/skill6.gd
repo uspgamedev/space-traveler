@@ -20,6 +20,7 @@ func preSetup (i) :
 
 func setup (i) :
 	set_fixed_process(true)
+	self.get_child(0).queue_free()
 	index = i
 	get_parent().player.skillCoolDown[index][2] = 0
 	get_parent().setBullet(i, "res://scenes/bullets/BulletSk6_1.xscn")

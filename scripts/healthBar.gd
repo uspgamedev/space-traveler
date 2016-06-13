@@ -84,7 +84,6 @@ func _draw():
 	
 	var indexHP = 100
 	while indexHP < tempMax :
-		print (indexHP)
 		if (indexHP%1000 != 0):
 			draw_line(Vector2(-50.0 + indexHP/tempMax*100.0, barPos.y ), Vector2(-50.0 + indexHP/tempMax*100.0, barPos.y + 6), Color(117.0/255, 117.0/255, 117.0/255, 0.8), 1)
 		else:
