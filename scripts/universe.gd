@@ -79,12 +79,17 @@ func checkPlanets ():
 
 func _input(ev):
 	if (ev.type==InputEvent.KEY):
+		print (ev.scancode)
 		if (ev.scancode == 81) :
 			doSkill(1)
 		elif (ev.scancode == 87) :
 			doSkill(2)
 		elif (ev.scancode == 69) :
 			doSkill(3)
+		elif (ev.scancode == 82) :
+			starEdit()
+		elif (ev.scancode == 16777231 or ev.scancode == 16777232 or ev.scancode == 16777233 or ev.scancode == 16777234) :
+			moveCursor(ev.scancode - 16777230)
 	if (ev.type==InputEvent.MOUSE_BUTTON):
 		if (ev.is_pressed() && ev.button_index == 2):
 			rightMouseIsPressed = 1
@@ -109,6 +114,12 @@ func _input(ev):
 		lastMovePos = ev.pos - get_viewport().get_rect().size/2 + player.get_child(2).get_camera_screen_center()
 		indicatorRadious = 30.0
 
+func starEdit ():
+	pass
+
+func moveCursor(arrow):
+	pass
+
 func doSkill (i):
 	if (player.skillCoolDown[i][0] + player.skillCoolDown[i][1] < OS.get_ticks_msec()/1000.0 and player.skillCoolDown[i][2] == 1) :
 		if (i == 0) :
@@ -123,11 +134,8 @@ func setBullet (i, bltPath):
 	projectiles.append(nextBullet)
 
 func getBullet () :
-	print ("c")
-	print ("proj s = ",projectiles.size())
 	if ((not projectiles.empty()) and player.skillCoolDown[projectiles[projectiles.size()-1][1]][0] + player.skillCoolDown[projectiles[projectiles.size()-1][1]][1] < OS.get_ticks_msec()/1000.0) :
 		var nextBullet = projectiles[projectiles.size()-1]
-		print("gb.nb = ", nextBullet)
 		projectiles.remove(projectiles.size()-1)
 		return nextBullet
 	return "noBullet"

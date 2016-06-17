@@ -4,14 +4,16 @@ extends Label
 var target
 var remaining
 var speed
+var gravSpeed = Vector2(0, -200)
 
 func _ready():
 	set_process(true)
 
 func showDamage (damage, dir, nature):
 	dir = dir.rotated(PI/9 - (randi()%40)*(PI/180.0))
-	speed = 50000/(150+damage)
-	target = dir.normalized() * (80.0*damage/(600.0+damage)+100.0)
+	#speed = 50000/(150+damage)
+	speed = 250
+	target = dir.normalized() * (80.0*damage/(600.0+damage)+60.0)
 	remaining = target
 	self.set_text(str(int(damage)))
 	if nature == 1 :
@@ -24,8 +26,9 @@ func showDamage (damage, dir, nature):
 func _process(delta):
 	var ds
 	remaining = remaining - target.normalized()*speed*delta
+	gravSpeed += Vector2(0, delta*1250)
 	if (target - remaining).length() < target.length():
-		ds = target.normalized()*speed*delta
+		ds = (target.normalized()*speed + gravSpeed)*delta
 		set_pos(ds+self.get_pos())
 	else :
 		self.queue_free()

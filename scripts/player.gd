@@ -10,6 +10,7 @@ var bar
 var skillPath = [0, 0, 0, 0]
 var skillCoolDown = [[0.0, -0.0, 0], [0.0, -0.0, 0], [0.0, -0.0, 0], [0.0, -0.0, 0]]
 var skillPre = [null, null, null, null]
+var ownedSkills = [[], [], [], []]
 
 var baseLvXp = 100
 var xpScale = 1.2
@@ -58,12 +59,14 @@ func initSkill ():
 	for skill in get_parent().skills :
 		var newSkillPre = skillPre[get_parent().skills.find(skill)]
 		if (newSkillPre != null and weakref(newSkillPre).get_ref()) :
-			print("ggizi")
 			skillPre[get_parent().skills.find(skill)].queue_free()
 		skillPre[get_parent().skills.find(skill)] = load(skillPath[get_parent().skills.find(skill)]).instance()
 		get_parent().add_child(skillPre[get_parent().skills.find(skill)])
 		skillPre[get_parent().skills.find(skill)].preSetup(get_parent().skills.find(skill))
 	movem.setSpeed(bar.speed)
+
+func recieveItem (item, index):
+	ownedSkills[index].append(item)
 
 func save():
 	var savedict = {
@@ -73,16 +76,28 @@ func save():
 		skill0 = skillPath[0],
 		skill1 = skillPath[1],
 		skill2 = skillPath[2],
-		skill3 = skillPath[3],
+		skill3 = skillPath[3]
 	}
+	
+	print (ownedSkills.size())
+	for skillSet in ownedSkills :
+		for skill in skillSet :
+			savedict["os" + str(ownedSkills.find(skillSet)) + "_" + str(ownedSkills[ownedSkills.find(skillSet)].find(skill))] = skill
+	
 	return savedict
 
 func loadG(line):
+	ownedSkills = [[], [], [], []]
 	experience = line["xp"]
 	skillPath[0] = line["skill0"]
 	skillPath[1] = line["skill1"]
 	skillPath[2] = line["skill2"]
 	skillPath[3] = line["skill3"]
+	for item in line :
+		if (item[0] == "o") :
+			print (ownedSkills.size())
+			ownedSkills[int(item[2])].append(line[item])
+			print (ownedSkills.size())
 	getLevel()
 	bar.curHp = bar.maxHp
 	initSkill()

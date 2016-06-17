@@ -5,15 +5,18 @@ var period = 120
 var count = 0
 var bar
 var movem
+var minDist = 300
+var maxDist = 800
+var pos = Vector2(0.0,0.0)
+var colVec = Vector2(0.0,0.0)
 
 func _init():
 	set_process(true)
 
 func _ready():
 	movem = self.get_child(0)
-	movem.shouldRotate = true
+	movem.shouldRotate = false
 	movem.setSpeed(200.0)
-	movem.setRotScene(self.get_child(1))
 	var barScene = load("res://scenes/HealthBar.scn")
 	bar = barScene.instance()
 	bar.initBar(800.0)
@@ -27,16 +30,31 @@ func setPeriod (sp):
 
 func _process(delta):
 	count += 1
-	var pos = self.get_parent().get_parent().player.get_pos()
-	movem.moveTo(pos - self.get_parent().get_pos())
+	var dist = minDist
+	if (bar.curHp < 0.5*bar.maxHp):
+		dist = maxDist
+	pos = self.get_parent().get_parent().player.get_pos() - self.get_parent().get_pos()
+	colVec = Vector2(0.0,0.0)
+	for i in self.get_child(3).get_overlapping_areas():
+		if (i.get_collision_mask() == 12):
+			colVec = (self.get_pos() - i.get_parent().get_pos())
+			colVec = colVec.normalized()*(126-colVec.length())
+			self.move(colVec)
+	movem.moveTo(pos - dist*(pos - self.get_pos()).normalized())
+	self.get_child(1).set_rot((pos - self.get_pos()).angle()+PI)
 	if (count%period < 1):
-		shot(pos)
+		shot(pos+self.get_parent().get_pos())
 	if (bar.curHp == 0):
 		self.get_parent().get_parent().player.skillPath[1] =  "res://scenes/bullets/Skill1.xscn"
-		get_parent().get_parent().player.experience +=25
+		get_parent().get_parent().player.experience += 0
 		self.get_parent().get_parent().save.save_game()
 		self.get_parent().get_parent().save.load_game()
 		self.queue_free()
+	update()
+	
+func _draw():
+	#draw_circle(Vector2(0,0), 63.0, Color(255.0/255, 160.0/255, 0.0/255, 0.5))
+	pass
 
 func shot (pos):
 	var bulletScene = load("res://scenes/bullets/Bullet2.xscn")

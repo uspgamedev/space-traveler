@@ -12,4 +12,12 @@ func initItem (skillPre, idx):
 	self.get_child(0).set_z(10)
 	skillPre.get_child(0).set_texture(null)
 	skillPre.get_child(0).queue_free()
-	
+
+func startEditItem () :
+	pass
+
+func editGoUp () :
+	pass
+
+func editGoDown () :
+	pass
