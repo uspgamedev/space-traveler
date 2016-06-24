@@ -24,7 +24,7 @@ func _fixed_process(delta):
 		move (ds)
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 6):
-			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(50,1, direction)
+			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(40, 3, direction)
 		self.queue_free()
 	if (!get_child(1).get_overlapping_areas().empty()):
 		self.get_child(0).set_texture(null)

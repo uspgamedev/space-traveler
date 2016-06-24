@@ -10,6 +10,7 @@ var armor = 0.0
 var shield = 0.0
 var AP = 0.0
 var AD = 0.0
+var crit = 0.0
 var speed = 0.0
 var barPos
 
@@ -37,8 +38,29 @@ func takeDamage(damage, nature, dir):
 			else :
 				damage = 0
 		curHp -= damage
+	elif nature == 1.5 :
+		damage = damage
+		Damage.showDamage (damage, dir, nature)
+		if barrier > 0 :
+			barrier -= damage
+			if barrier < 0 :
+				damage = -barrier
+				barrier = 0
+			else :
+				damage = 0
+		curHp -= damage
 	elif nature == 2 :
 		damage = damage*(100.0/(100.0+shield))
+		Damage.showDamage (damage, dir, nature)
+		if barrier > 0 :
+			barrier -= damage
+			if barrier < 0 :
+				damage = -barrier
+				barrier = 0
+			else :
+				damage = 0
+		curHp -= damage
+	elif nature == 3 :
 		Damage.showDamage (damage, dir, nature)
 		if barrier > 0 :
 			barrier -= damage

@@ -26,7 +26,7 @@ func _fixed_process(delta):
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		for i in get_child(1).get_overlapping_bodies():
 			if (i.get_collision_mask() == 12 and not (i in alreadyCollided)):
-				i.bar.takeDamage(acel*(1+0.05*get_parent().player.bar.AP)/10.0, 2, direction)
+				i.bar.takeDamage(acel*(0.5+0.06*get_parent().player.bar.AP)/10.0, 2, direction)
 				alreadyCollided.append(i)
 	for j in alreadyCollided:
 		if (not j in get_child(1).get_overlapping_bodies()):

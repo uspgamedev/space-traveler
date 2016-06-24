@@ -9,6 +9,8 @@ var minDist = 300
 var maxDist = 800
 var pos = Vector2(0.0,0.0)
 var colVec = Vector2(0.0,0.0)
+var norArm
+var proArm
 
 func _init():
 	set_process(true)
@@ -21,9 +23,12 @@ func _ready():
 	bar = barScene.instance()
 	bar.initBar(800.0)
 	add_child(bar)
+	bar.AD +=50
+	bar.crit +=60
 	bar.armor +=100
 	bar.shield +=100
-
+	norArm = bar.armor
+	proArm = bar.armor*2
 
 func setPeriod (sp):
 	period = 60*sp
@@ -32,7 +37,10 @@ func _process(delta):
 	count += 1
 	var dist = minDist
 	if (bar.curHp < 0.5*bar.maxHp):
+		bar.armor = proArm
 		dist = maxDist
+	else :
+		bar.armor = norArm
 	pos = self.get_parent().get_parent().player.get_pos() - self.get_parent().get_pos()
 	colVec = Vector2(0.0,0.0)
 	for i in self.get_child(3).get_overlapping_areas():
@@ -46,7 +54,7 @@ func _process(delta):
 		shot(pos+self.get_parent().get_pos())
 	if (bar.curHp == 0):
 		self.get_parent().get_parent().player.skillPath[1] =  "res://scenes/bullets/Skill1.xscn"
-		get_parent().get_parent().player.experience += 0
+		get_parent().get_parent().player.experience += 50
 		self.get_parent().get_parent().save.save_game()
 		self.get_parent().get_parent().save.load_game()
 		self.queue_free()

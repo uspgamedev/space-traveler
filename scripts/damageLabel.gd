@@ -15,11 +15,18 @@ func showDamage (damage, dir, nature):
 	speed = 250
 	target = dir.normalized() * (80.0*damage/(600.0+damage)+60.0)
 	remaining = target
-	self.set_text(str(int(damage)))
 	if nature == 1 :
+		self.set_text(str(int(damage)))
+		self.add_color_override("font_color", Color(183.0/255, 28.0/255, 28.0/255, 0.8))
+	elif nature == 1.5 :
+		self.set_text(str(int(damage))+ "!")
 		self.add_color_override("font_color", Color(183.0/255, 28.0/255, 28.0/255, 0.8))
 	elif nature == 2 :
+		self.set_text(str(int(damage)))
 		self.add_color_override("font_color", Color(98.0/255, 0.0/255, 234.0/255, 0.8))
+	elif nature == 3 :
+		self.set_text(str(int(damage)))
+		self.add_color_override("font_color", Color(33.0/255, 33.0/255, 33.0/255, 0.8))
 	self.add_font_override("font", load("res://font32.fnt"))
 	self.set_scale(Vector2(damage/(700.0+damage)+0.4, damage/(700.0+damage)+0.4))
 

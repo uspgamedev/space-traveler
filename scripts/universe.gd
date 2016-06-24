@@ -79,7 +79,6 @@ func checkPlanets ():
 
 func _input(ev):
 	if (ev.type==InputEvent.KEY):
-		print (ev.scancode)
 		if (ev.scancode == 81) :
 			doSkill(1)
 		elif (ev.scancode == 87) :
@@ -103,7 +102,6 @@ func _input(ev):
 			rightMouseIsPressed = 0
 		if (ev.is_pressed() && ev.button_index == 1):
 			var projectile = getBullet()
-			print(projectile)
 			if (projectile != "noBullet") :
 				var bulletScene = load(projectile[0])
 				var bullet = bulletScene.instance()
@@ -130,7 +128,6 @@ func doSkill (i):
 
 func setBullet (i, bltPath):
 	var nextBullet = [bltPath, i]
-	print("b p = ", projectiles, "nb = ", nextBullet)
 	projectiles.append(nextBullet)
 
 func getBullet () :

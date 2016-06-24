@@ -22,7 +22,10 @@ func _fixed_process(delta):
 	elif (!get_child(1).get_overlapping_bodies().empty()):
 		self.get_child(0).set_texture(null)
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 12):
-			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(50+0.8*get_parent().player.bar.AD, 1, direction)
+			if (randf() <= get_parent().player.bar.crit/(get_child(1).get_overlapping_bodies()[0].bar.armor + get_parent().player.bar.crit)):
+				get_child(1).get_overlapping_bodies()[0].bar.takeDamage(0.5*get_parent().player.bar.AD, 1.5, direction)
+			else :
+				get_child(1).get_overlapping_bodies()[0].bar.takeDamage(0.5*get_parent().player.bar.AD, 1, direction)
 			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(1.0*get_parent().player.bar.AP, 2, direction)
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() != 9):
 			get_parent().player.movem.speedAdds -= speedBoost

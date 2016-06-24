@@ -17,7 +17,7 @@ func _ready():
 func _fixed_process(delta):
 	if (movem.finished and finished==0):
 		if (!get_child(1).get_overlapping_bodies().empty()):
-			movem.moveTo(self.get_pos()+direction.normalized()*300)
+			movem.moveTo(self.get_pos()+direction.normalized()*200)
 		else:
 			self.get_parent().player.set_pos(self.get_pos())
 			finished = 1
@@ -38,5 +38,5 @@ func shoot (pos, dir, i):
 	movem.shouldRotate = true
 	movem.setRotScene(self.get_child(0))
 	var newTransform = Matrix32(0, pos)
-	movem.moveTo(dir.normalized()*300)
+	movem.moveTo(dir.normalized()*200)
 	self.set_transform(newTransform)

@@ -27,7 +27,10 @@ func _fixed_process(delta):
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		self.get_child(0).set_texture(null)
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 12):
-			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(100+1.3*get_parent().player.bar.AD,1, direction)
+			if (randf() <= get_parent().player.bar.crit/(get_child(1).get_overlapping_bodies()[0].bar.armor + get_parent().player.bar.crit)):
+				get_child(1).get_overlapping_bodies()[0].bar.takeDamage(100+1.3*get_parent().player.bar.AD,1, direction)
+			else :
+				get_child(1).get_overlapping_bodies()[0].bar.takeDamage(100+1.3*get_parent().player.bar.AD,1, direction)
 			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(1.3*get_parent().player.bar.AP,2, direction)
 		get_parent().player.skillCoolDown[index][2] = 1
 		self.queue_free()

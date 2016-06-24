@@ -4,6 +4,7 @@ extends Node2D
 var charges = 1
 var finished = 0
 var index
+var didHitLast = 0
 
 func _init():
 	pass
