@@ -5,8 +5,10 @@ var target
 var remaining
 var speed = 400.0
 var direction
-var AD = 30.0
-var crit = 20.0
+var AD = 60.0
+var crit = 30.0
+
+var shooter
 
 func _init():
 	target = self.get_pos()-self.get_pos()
@@ -24,10 +26,9 @@ func _fixed_process(delta):
 		print(get_child(1).get_overlapping_bodies()[0].get_collision_mask())
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 6):
 			if (randf() <= crit/(get_child(1).get_overlapping_bodies()[0].bar.armor + crit)):
-				print ("parmor", get_child(1).get_overlapping_bodies()[0].bar.armor)
-				get_child(1).get_overlapping_bodies()[0].bar.takeDamage(20+AD, 1.5, direction)
+				get_child(1).get_overlapping_bodies()[0].bar.takeDamage(40+AD, 1.5, direction)
 			else :
-				get_child(1).get_overlapping_bodies()[0].bar.takeDamage(20+AD, 1, direction)
+				get_child(1).get_overlapping_bodies()[0].bar.takeDamage(40+AD, 1, direction)
 		
 		self.queue_free()
 	if (!get_child(1).get_overlapping_areas().empty()):

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resource_file type="PackedScene" subresource_count="4" version="2.0" version_name="Godot Engine v2.0.stable.official">
-	<ext_resource path="res://scenes/Movement.xscn" type="PackedScene" index="1"></ext_resource>
-	<ext_resource path="res://scripts/bullets/bulletSk6_1.gd" type="Script" index="0"></ext_resource>
+	<ext_resource path="res://crystal-shine.png" type="Texture" index="1"></ext_resource>
+	<ext_resource path="res://scripts/bullets/skill11.gd" type="Script" index="0"></ext_resource>
 	<resource type="CircleShape2D" path="local://1">
 		<real name="custom_solver_bias"> 0 </real>
 		<real name="radius"> 10 </real>
@@ -17,16 +17,14 @@
 			<array  len="0" shared="false">
 			</array>
 			<string> "names" </string>
-			<string_array  len="22">
-				<string> "KinematicBody2D" </string>
-				<string> "input/pickable" </string>
-				<string> "collision/layers" </string>
-				<string> "collision/mask" </string>
-				<string> "collision/margin" </string>
+			<string_array  len="21">
+				<string> "Node2D" </string>
 				<string> "script/script" </string>
 				<string> "Sprite" </string>
-				<string> "transform/scale" </string>
+				<string> "z/z" </string>
+				<string> "texture" </string>
 				<string> "Area2D" </string>
+				<string> "input/pickable" </string>
 				<string> "shapes/0/shape" </string>
 				<string> "shapes/0/transform" </string>
 				<string> "shapes/0/trigger" </string>
@@ -34,38 +32,37 @@
 				<string> "gravity" </string>
 				<string> "linear_damp" </string>
 				<string> "angular_damp" </string>
+				<string> "collision/layers" </string>
+				<string> "collision/mask" </string>
 				<string> "CollisionShape2D" </string>
-				<string> "transform/pos" </string>
+				<string> "transform/scale" </string>
 				<string> "shape" </string>
 				<string> "trigger" </string>
 				<string> "_update_shape_index" </string>
-				<string> "Node" </string>
 			</string_array>
 			<string> "node_count" </string>
-			<int> 5 </int>
+			<int> 4 </int>
 			<string> "node_paths" </string>
 			<array  len="0" shared="false">
 			</array>
 			<string> "nodes" </string>
-			<int_array  len="77"> 				-1, -1, 0, 0, -1, 5, 1, 0, 2, 1, 3, 1, 4, 2, 5, 3, 0, 0, 0, 6, 6, -1, 1, 7, 4, 0, 0, 0, 8, 8, -1, 10, 1, 5, 9, 6, 10, 7, 11, 0, 12, 8, 13, 9, 14, 10, 15, 11, 2, 1, 3, 1, 0, 2, 0, 16, 16, -1, 5, 17, 12, 7, 13, 18, 6, 19, 0, 20, 14, 0, 0, 0, 2147483647, 21, 15, 0, 0 </int_array>
+			<int_array  len="62"> 				-1, -1, 0, 0, -1, 1, 1, 0, 0, 0, 0, 2, 2, -1, 2, 3, 1, 4, 2, 0, 0, 0, 5, 5, -1, 10, 6, 3, 7, 4, 8, 5, 9, 6, 10, 7, 11, 8, 12, 9, 13, 10, 14, 11, 15, 11, 0, 2, 0, 16, 16, -1, 4, 17, 12, 18, 4, 19, 6, 20, 13, 0 </int_array>
 			<string> "variants" </string>
-			<array  len="16" shared="false">
-				<bool> False </bool>
-				<int> 9 </int>
-				<real> 0.08 </real>
+			<array  len="14" shared="false">
 				<resource  external="0">  </resource>
-				<vector2> 1.9, 1.9 </vector2>
+				<int> -1 </int>
+				<resource  external="1">  </resource>
 				<bool> True </bool>
 				<resource  resource_type="Shape2D" path="local://1">  </resource>
-				<matrix32> 2.8, -0, 0, 2.8, 0.0944668, -0.0944681 </matrix32>
+				<matrix32> 30, -0, 0, 30, 0, 0 </matrix32>
+				<bool> False </bool>
 				<vector2> 0, 1 </vector2>
 				<real> 98 </real>
 				<real> 0.1 </real>
 				<real> 1 </real>
-				<vector2> 0.0944668, -0.0944681 </vector2>
-				<vector2> 2.8, 2.8 </vector2>
+				<int> 8 </int>
+				<vector2> 30, 30 </vector2>
 				<int> 0 </int>
-				<resource  external="1">  </resource>
 			</array>
 			<string> "version" </string>
 			<int> 2 </int>

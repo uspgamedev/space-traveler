@@ -1,6 +1,6 @@
 
 extends KinematicBody2D
-var speed = 3000.0
+var speed = 2000.0
 var direction
 var position
 var movem
@@ -23,7 +23,9 @@ func _fixed_process(delta):
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		for i in get_child(1).get_overlapping_bodies():
 			if (i.get_collision_mask() == 12 and not (i in alreadyCollided)):
-				i.bar.takeDamage(250+(i.bar.maxHp - i.bar.curHp)*(0.33+0.04*get_parent().get_parent().player.bar.AP), 2, direction)
+				var damage = 150+(i.bar.maxHp - i.bar.curHp)*(0.20+0.15/100.0*get_parent().get_parent().player.bar.speed)
+				damage = i.bar.takeDamage(damage, 0, direction)
+				get_parent().get_parent().player.bar.takeHeal(damage*get_parent().get_parent().player.bar.vampirism, 0.5, direction)
 				alreadyCollided.append(i)
 	for j in alreadyCollided:
 		if (not j in get_child(1).get_overlapping_bodies()):

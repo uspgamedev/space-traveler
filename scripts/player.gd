@@ -12,11 +12,13 @@ var skillCoolDown = [[0.0, -0.0, 0], [0.0, -0.0, 0], [0.0, -0.0, 0], [0.0, -0.0,
 var skillPre = [null, null, null, null]
 var ownedSkills = [[], [], [], []]
 
-var baseLvXp = 100
+var baseLvXp = 150
 var xpScale = 1.2
 var level = 0
 
 var hud
+
+var STDSPEED = 100
 
 var experience = 0
 
@@ -45,15 +47,14 @@ func getLevel ():
 	while (xpLeft >= baseLvXp*pow(xpScale,level)) :
 		xpLeft -= baseLvXp*pow(xpScale,level)
 		level += 1
-	print ("level = ", level)
-	
-	bar.maxHp = 500.0 + level*80.0
-	bar.armor = 0 + level*4.0
-	bar.shield = 0 + level*4.0
-	bar.AP = 0.0 + level*7.0
-	bar.AD = 0.0 + level*7.0
-	bar.speed = 350.0 + level*4.0
-	movem.setSpeed(bar.speed)
+	bar.maxHp = 500.0 + level*50.0
+	bar.setArmor(0 + level*5.0)
+	bar.setShield(0 + level*5.0)
+	bar.setAp(0.0 + level*5.0)
+	bar.setAd(0.0 + level*5.0)
+	bar.setSpeed(STDSPEED + level*5.0)
+	bar.luck = 0.0
+	bar.vampirism = 0.0
 
 func initSkill ():
 	for skill in get_parent().skills :
@@ -78,7 +79,6 @@ func save():
 		skill2 = skillPath[2],
 		skill3 = skillPath[3]
 	}
-	
 	print (ownedSkills.size())
 	for skillSet in ownedSkills :
 		for skill in skillSet :
@@ -95,11 +95,9 @@ func loadG(line):
 	skillPath[3] = line["skill3"]
 	for item in line :
 		if (item[0] == "o") :
-			print (ownedSkills.size())
 			ownedSkills[int(item[2])].append(line[item])
-			print (ownedSkills.size())
+	bar.removeItemFX()
 	getLevel()
-	bar.curHp = bar.maxHp
 	initSkill()
 	var hudScene = load("res://scenes/Hud.xscn")
 	if (hud != null and weakref(hud).get_ref()) :

@@ -2,12 +2,14 @@
 extends KinematicBody2D
 var speed = 1000.0
 var direction
-var index
+var father
 var charges = 1
 
 var speedBoost = 30
 
 var movem
+
+var shooter
 
 func _init():
 	set_fixed_process(true)
@@ -17,28 +19,23 @@ func _ready():
 
 func _fixed_process(delta):
 	if (movem.finished):
-		get_parent().player.movem.speedAdds -= speedBoost
+		father.shouldFree()
 		self.queue_free()
 	elif (!get_child(1).get_overlapping_bodies().empty()):
 		self.get_child(0).set_texture(null)
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() == 12):
-			if (randf() <= get_parent().player.bar.crit/(get_child(1).get_overlapping_bodies()[0].bar.armor + get_parent().player.bar.crit)):
-				get_child(1).get_overlapping_bodies()[0].bar.takeDamage(0.5*get_parent().player.bar.AD, 1.5, direction)
-			else :
-				get_child(1).get_overlapping_bodies()[0].bar.takeDamage(0.5*get_parent().player.bar.AD, 1, direction)
-			get_child(1).get_overlapping_bodies()[0].bar.takeDamage(1.0*get_parent().player.bar.AP, 2, direction)
+			father.collideWith(get_child(1).get_overlapping_bodies()[0])
 		if (get_child(1).get_overlapping_bodies()[0].get_collision_mask() != 9):
-			get_parent().player.movem.speedAdds -= speedBoost
+			father.shouldFree()
 			self.queue_free()
 
-func shoot(pos, dir, index):
+func shoot(pos, dir, ftr, shtr):
+	shooter = shtr
 	direction = dir
 	movem = self.get_child(2)
 	movem.setSpeed(1000.0)
-	if (index != -1):
-		get_parent().player.skillCoolDown[index][2] = 1
-		get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
-	get_parent().player.movem.speedAdds += speedBoost
+	father = ftr
+	#get_parent().player.bar.takeBuff(30, 0, 1.0)
 	var newTransform = Matrix32(0, pos)
 	movem.moveTo(dir.normalized()*500)
 	self.set_transform(newTransform)

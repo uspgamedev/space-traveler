@@ -5,8 +5,8 @@ var finished = 0
 var index
 var bullet
 var angle = 0
-var duration = 2000
-var duration2 = 1000
+var duration = 1000
+var duration2 = 500
 var iniTime
 var iniTime2
 var doDamage = []
@@ -24,6 +24,11 @@ func preSetup (i) :
 	get_parent().player.skillCoolDown[i][1] = - 4.0
 	get_parent().player.skillCoolDown[i][0] = 4.0
 	get_parent().skills[i].append(self.get_path())
+	get_parent().player.bar.takeBuff(30, 3, -4)
+	get_parent().player.bar.vampirism += 0.1
+	get_parent().player.bar.takeBuff(20, 1, -4)
+	get_parent().player.bar.takeBuff(20, 2, -4)
+	get_parent().player.bar.maxHp += 200
 	#self.queue_free()
 
 func setup (i) :
@@ -43,7 +48,6 @@ func damage():
 func _draw():
 	for i in doDamage:
 		if (weakref(i).get_ref()):
-			print(i.get_pos()+i.get_parent().get_pos()-self.get_pos())
 			if (finished == 0):
 				draw_circle(i.get_pos()+i.get_parent().get_pos()-self.get_pos(), 30.0, Color(0.0/255, 137.0/255, 123.0/255, 0.5))
 			if (finished == 1):
@@ -59,7 +63,7 @@ func _fixed_process(delta):
 		for i in doDamage:
 			if (weakref(i).get_ref()):
 				direction = (i.get_pos()+i.get_parent().get_pos()-self.get_pos())
-				i.bar.takeDamage(250+(i.bar.maxHp - i.bar.curHp)*(0.20+0.04*get_parent().player.bar.AP), 2, direction)
+				i.bar.takeDamage(250+(i.bar.maxHp - i.bar.curHp)*(0.20+0.2/100.0*get_parent().player.bar.AP), 2, direction)
 		get_parent().player.skillCoolDown[index][2] = 1
 		get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
 		self.queue_free()

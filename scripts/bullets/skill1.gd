@@ -17,10 +17,11 @@ func preSetup (i) :
 	get_parent().player.skillCoolDown[i][1] = - 2.0
 	get_parent().player.skillCoolDown[i][0] = 2.0
 	get_parent().skills[i].append(self.get_path())
-	get_parent().player.bar.AD += 30
-	get_parent().player.bar.crit += 20
-	get_parent().player.bar.armor += 20
-	#self.queue_free()
+	get_parent().player.bar.takeBuff(40, 4, -2)
+	get_parent().player.bar.vampirism += 0.15
+	get_parent().player.bar.luck += 30
+	get_parent().player.bar.takeBuff(20, 1, -2)
+	get_parent().player.bar.takeBuff(20, 2, -2)
 
 func setup (i) :
 	set_process(true)

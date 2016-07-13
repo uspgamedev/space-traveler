@@ -18,15 +18,16 @@ func _init():
 func _ready():
 	movem = self.get_child(0)
 	movem.shouldRotate = false
-	movem.setSpeed(200.0)
+	movem.setSpeed(260.0)
 	var barScene = load("res://scenes/HealthBar.scn")
 	bar = barScene.instance()
-	bar.initBar(800.0)
+	bar.initBar(1200.0)
 	add_child(bar)
 	bar.AD +=50
-	bar.crit +=60
-	bar.armor +=100
-	bar.shield +=100
+	bar.luck +=60
+	bar.armor +=110
+	bar.shield +=110
+	bar.vampirism += 0.1
 	norArm = bar.armor
 	proArm = bar.armor*2
 
@@ -53,7 +54,7 @@ func _process(delta):
 	if (count%period < 1):
 		shot(pos+self.get_parent().get_pos())
 	if (bar.curHp == 0):
-		self.get_parent().get_parent().player.skillPath[1] =  "res://scenes/bullets/Skill1.xscn"
+		#self.get_parent().get_parent().player.skillPath[1] =  "res://scenes/bullets/Skill1.xscn"
 		get_parent().get_parent().player.experience += 50
 		self.get_parent().get_parent().save.save_game()
 		self.get_parent().get_parent().save.load_game()

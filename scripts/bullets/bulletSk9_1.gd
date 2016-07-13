@@ -12,6 +12,8 @@ func _fixed_process(delta):
 		for i in get_child(1).get_overlapping_bodies():
 			if (i.get_collision_mask() == 12 and not (i in self.get_parent().doDamage)):
 				self.get_parent().doDamage.append(i)
+				var heal = get_parent().get_parent().player.bar.maxHp*0.05*(1 + get_parent().get_parent().player.bar.vampirism)
+				get_parent().get_parent().player.bar.takeHeal(heal, 0, Vector2(-cos(angle), -sin(angle)))
 	if (self.get_parent().iniTime + self.get_parent().duration <= OS.get_ticks_msec()):
 		set_fixed_process(false)
 		self.get_parent().damage()

@@ -1,5 +1,6 @@
 
 extends KinematicBody2D
+
 var speed = 1000.0
 var direction
 var ndirection
@@ -9,6 +10,8 @@ var charges = 1
 var acel = 700.0;
 var alreadyCollided = []
 var indicatorRadious = 20;
+
+var shooter
 
 func _init():
 	set_fixed_process(true)
@@ -26,7 +29,9 @@ func _fixed_process(delta):
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		for i in get_child(1).get_overlapping_bodies():
 			if (i.get_collision_mask() == 12 and not (i in alreadyCollided)):
-				i.bar.takeDamage(acel*(0.5+0.06*get_parent().player.bar.AP)/10.0, 2, direction)
+				var damage = acel/50.0*(1+0.05*shooter.bar.AP) + 1.0*shooter.bar.AP
+				damage = i.bar.takeDamage(damage, 2, direction)
+				get_parent().player.bar.takeHeal(damage*(shooter.bar.vampirism), 0.5, shooter.get_pos() - self.get_pos())
 				alreadyCollided.append(i)
 	for j in alreadyCollided:
 		if (not j in get_child(1).get_overlapping_bodies()):
@@ -38,13 +43,12 @@ func _fixed_process(delta):
 func _draw():
 	draw_circle(Vector2(0,0), indicatorRadious, Color((255.0*((acel-500.0)/acel)/255.0), 80.0/255, 80.0/255, 0.8))
 
-func shoot (pos, dir, index):
+func shoot (pos, dir, index, shtr):
+	shooter = shtr
 	movem = self.get_child(2)
 	movem.setSpeed(-800.0)
-	if (index != -1):
-		get_parent().player.skillCoolDown[index][2] = 1
-		get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
-	
+	get_parent().player.skillCoolDown[index][2] = 1
+	get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
 	direction = dir
 	movem.shouldRotate = true
 	movem.setRotScene(self.get_child(0))

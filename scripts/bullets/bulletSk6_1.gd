@@ -1,6 +1,6 @@
 
 extends KinematicBody2D
-var speed = 3000.0
+var speed = 2000.0
 var direction
 var position
 var movem
@@ -9,7 +9,11 @@ var iniTime
 var finished = 0
 var bullet
 var iniPos
-var duration = 1000
+var duration = 750
+
+var alreadyCollided = []
+
+var shooter
 
 func _init():
 	set_fixed_process(true)
@@ -20,7 +24,13 @@ func _ready():
 func _fixed_process(delta):
 	if (movem.finished and finished==0):
 		if (!get_child(1).get_overlapping_bodies().empty()):
-			movem.moveTo(self.get_pos()+direction.normalized()*300)
+			movem.moveTo(self.get_pos()+direction.normalized()*100)
+			for i in get_child(1).get_overlapping_bodies():
+				if (i.get_collision_mask() == 12 and not (i in alreadyCollided)):
+					var damage = 250+(1.2*shooter.bar.AP)
+					damage = i.bar.takeDamage(damage, 2, direction)
+					shooter.bar.takeHeal(damage, 0.5, direction)
+					alreadyCollided.append(i)
 		else:
 			self.get_parent().player.set_pos(self.get_pos())
 			iniTime = OS.get_ticks_msec()
@@ -43,7 +53,8 @@ func finish():
 	bullet.queue_free()
 	queue_free()
 
-func shoot (pos, dir, i):
+func shoot (pos, dir, i, shtr):
+	shooter = shtr
 	index = i
 	iniPos = pos
 	movem = self.get_child(2)
@@ -52,5 +63,5 @@ func shoot (pos, dir, i):
 	movem.shouldRotate = true
 	movem.setRotScene(self.get_child(0))
 	var newTransform = Matrix32(0, pos)
-	movem.moveTo(dir.normalized()*500)
+	movem.moveTo(dir.normalized()*400)
 	self.set_transform(newTransform)

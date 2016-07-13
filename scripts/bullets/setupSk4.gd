@@ -7,16 +7,22 @@ var charges = 1
 var size = 30
 var positions = [Vector2(0, 0)]
 var collisions = []
-var indicatorRadious = 8*4
+var indicatorRadious = 8*3
 var bullets = []
-var endTime = 0.25
+var endTime = 0.5
+var slow
 var bulDir
+
+var shooter
 
 func _ready():
 	pass
 
 func _process(delta):
 	if endTime <= OS.get_ticks_msec()/1000.0:
+		for i in collisions:
+			if (weakref(i).get_ref()):
+				i.movem.speedMulti *= 1/slow
 		self.queue_free()
 	update()
 
@@ -29,11 +35,17 @@ func collideWith(object):
 	for i in collisions:
 		if (i == object):
 			return
-	object.bar.takeDamage(200+1.5*get_parent().player.AP,2, bulDir)
+	var damage = 75+1.3*shooter.bar.AP
+	if (weakref(object).get_ref()):
+		object.bar.takeDamage(damage,2, bulDir)
+		object.movem.speedMulti *= slow
+	get_parent().player.bar.takeHeal(damage*(shooter.bar.vampirism), 0.5, -bulDir)
 	collisions.append(object)
 
-func shoot (pos, dir, index):
+func shoot (pos, dir, index, shtr):
+	shooter = shtr
 	bulDir = dir
+	slow = 100/(shooter.bar.luck+shooter.bar.AD+100)
 	if (index != -1) :
 		get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
 		get_parent().player.skillCoolDown[index][2] = 1
