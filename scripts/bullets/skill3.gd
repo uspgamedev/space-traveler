@@ -38,7 +38,7 @@ func setup (i):
 	#get_parent().player.skillCoolDown[index][2] = 0
 	get_parent().player.skillCoolDown[i][1] = OS.get_ticks_msec()/1000.0
 	#get_parent().player.skillCoolDown[index][2] = 1
-	get_parent().player.movem.moveTo((get_viewport().get_mouse_pos()-get_viewport().get_rect().size/2).normalized()*20*sqrt(get_parent().player.bar.speed)+get_parent().player.get_pos(), 100*sqrt(get_parent().player.bar.speed))
+	get_parent().player.movem.moveTo((get_viewport().get_mouse_pos()-get_viewport().get_rect().size/2).normalized()*25*sqrt(get_parent().player.bar.speed)+get_parent().player.get_pos(), 80*sqrt(get_parent().player.bar.speed))
 	get_parent().player.bar.takeBuff(100, 1, 1.5)
 	get_parent().player.bar.takeBuff(100, 2, 1.5)
 	get_parent().player.bar.takeBuff(1.5, 4.5, 1.5)

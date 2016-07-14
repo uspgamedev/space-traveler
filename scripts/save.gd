@@ -15,6 +15,7 @@ func save_game():
 	savegame.close()
 
 func load_game():
+	print ("load")
 	var savegame = File.new()
 	if !savegame.file_exists("res://space-traveler.save"):
 		self.get_parent().player.skillPath[0] = "res://scenes/bullets/BasicAttack1.xscn"
@@ -29,5 +30,6 @@ func load_game():
 	while (!savegame.eof_reached()):
 		currentline.parse_json(savegame.get_line())
 		if (currentline["tag"] == "player"):
+			print ("loadg = " , currentline)
 			self.get_parent().player.loadG(currentline)
 	savegame.close()

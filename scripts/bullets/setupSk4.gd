@@ -35,17 +35,19 @@ func collideWith(object):
 	for i in collisions:
 		if (i == object):
 			return
-	var damage = 75+1.3*shooter.bar.AP
+	var damage = 100+1.3*shooter.bar.AP
 	if (weakref(object).get_ref()):
+		slow = 1.0 - shooter.bar.luck/(object.bar.shield + shooter.bar.luck)-0.1
 		object.bar.takeDamage(damage,2, bulDir)
 		object.movem.speedMulti *= slow
 	get_parent().player.bar.takeHeal(damage*(shooter.bar.vampirism), 0.5, -bulDir)
+	get_parent().player.bar.takeHeal(shooter.bar.maxHp*(shooter.bar.vampirism), 0, -bulDir)
 	collisions.append(object)
 
 func shoot (pos, dir, index, shtr):
 	shooter = shtr
 	bulDir = dir
-	slow = 100/(shooter.bar.luck+shooter.bar.AD+100)
+	slow = 0.1
 	if (index != -1) :
 		get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
 		get_parent().player.skillCoolDown[index][2] = 1

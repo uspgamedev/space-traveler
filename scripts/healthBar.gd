@@ -111,14 +111,24 @@ func checkList(list, type):
 				takeBuff(i[1], i[2], 0)
 
 func removeItemFX():
+	var temp = []
+	var count = 0
 	for i in buffs :
-		if i[0] <= -1 :
+		if i[0] > -1 :
+			temp.append(i)
+			count += 1
+		else :
 			takeNerf(i[1], i[2], 0)
-			buffs.remove(buffs.find(i))
+	#buffs = []
+	buffs = temp
+	temp = []
 	for i in nerfs :
-		if i[0] <= -1 :
+		if i[0] > -1 :
+			temp.append(i)
+			count += 1
+		else :
 			takeBuff(i[1], i[2], 0)
-			nerfs.remove(nerfs.find(i))
+	nerfs = temp
 
 func takeState (state, time):
 	pass
