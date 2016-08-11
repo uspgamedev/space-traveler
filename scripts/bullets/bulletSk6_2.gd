@@ -23,8 +23,8 @@ func _fixed_process(delta):
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		for i in get_child(1).get_overlapping_bodies():
 			if (i.get_collision_mask() == 12 and not (i in alreadyCollided)):
-				var damage = 150+(i.bar.maxHp - i.bar.curHp)*(0.20+0.15/100.0*get_parent().get_parent().player.bar.speed)
-				damage = i.bar.takeDamage(damage, 0, direction)
+				var damage = 350+1000*(i.bar.maxHp - i.bar.curHp)/i.bar.maxHp*(1+0.6/100.0*get_parent().get_parent().player.bar.AP)
+				damage = i.bar.takeDamage(damage, 2, direction)
 				get_parent().get_parent().player.bar.takeHeal(damage*get_parent().get_parent().player.bar.vampirism, 0.5, direction)
 				alreadyCollided.append(i)
 	for j in alreadyCollided:

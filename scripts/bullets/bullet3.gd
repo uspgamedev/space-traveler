@@ -33,9 +33,9 @@ func shoot(pos, dir, ftr, shtr):
 	shooter = shtr
 	direction = dir
 	movem = self.get_child(2)
-	movem.setSpeed(1000.0)
+	movem.setSpeed(1200.0)
 	father = ftr
 	#get_parent().player.bar.takeBuff(30, 0, 1.0)
 	var newTransform = Matrix32(0, pos)
-	movem.moveTo(dir.normalized()*500)
+	movem.moveTo(dir.normalized()*300)
 	self.set_transform(newTransform)

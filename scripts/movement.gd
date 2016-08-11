@@ -25,6 +25,7 @@ var shouldRotate = 0
 var rotScene
 
 var del = 0.012
+var isDash = 0
 
 var thread = Thread.new()
 
@@ -48,6 +49,7 @@ func _process(delta):
 			var n = get_parent().get_collision_normal().slide(ds)
 			get_parent().move(n)
 	else :
+		isDash = 0
 		finished = 1
 	if (shouldRotate) :
 		rotate(target)
@@ -59,9 +61,17 @@ func setFixedSpeed (var sp):
 	speed0 = sp
 
 func moveTo(pos, s = speed0):
-	speed = s
-	target = pos - get_parent().get_pos()
-	remaining = target
+	if not isDash :
+		speed = s
+		target = pos - get_parent().get_pos()
+		remaining = target
+
+func dashTo(pos, s = speed0):
+	if not isDash :
+		speed = s
+		target = pos - get_parent().get_pos()
+		remaining = target
+		isDash = 1
 
 func rotate (pos):
 	rotScene.set_rot(atan2(pos.x, pos.y)+PI)

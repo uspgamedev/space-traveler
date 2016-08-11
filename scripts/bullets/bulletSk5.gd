@@ -29,7 +29,7 @@ func _fixed_process(delta):
 	if (!get_child(1).get_overlapping_bodies().empty()):
 		for i in get_child(1).get_overlapping_bodies():
 			if (i.get_collision_mask() == 12 and not (i in alreadyCollided)):
-				var damage = acel/50.0*(1+0.05*shooter.bar.AP) + 1.0*shooter.bar.AP
+				var damage = acel/100.0*(10+0.09*shooter.bar.AP) + 0.4*shooter.bar.AP
 				damage = i.bar.takeDamage(damage, 2, direction)
 				get_parent().player.bar.takeHeal(damage*(shooter.bar.vampirism), 0.5, shooter.get_pos() - self.get_pos())
 				alreadyCollided.append(i)
@@ -46,7 +46,7 @@ func _draw():
 func shoot (pos, dir, index, shtr):
 	shooter = shtr
 	movem = self.get_child(2)
-	movem.setSpeed(-800.0)
+	movem.setSpeed(-700.0)
 	get_parent().player.skillCoolDown[index][2] = 1
 	get_parent().player.skillCoolDown[index][1] = OS.get_ticks_msec()/1000.0
 	direction = dir

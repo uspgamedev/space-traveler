@@ -20,9 +20,6 @@ func _ready():
 
 func _process(delta):
 	if endTime <= OS.get_ticks_msec()/1000.0:
-		for i in collisions:
-			if (weakref(i).get_ref()):
-				i.movem.speedMulti *= 1/slow
 		self.queue_free()
 	update()
 
@@ -35,13 +32,12 @@ func collideWith(object):
 	for i in collisions:
 		if (i == object):
 			return
-	var damage = 100+1.3*shooter.bar.AP
+	var damage = 200+2.0*shooter.bar.AP
 	if (weakref(object).get_ref()):
-		slow = 1.0 - shooter.bar.luck/(object.bar.shield + shooter.bar.luck)-0.1
-		object.bar.takeDamage(damage,2, bulDir)
-		object.movem.speedMulti *= slow
+		object.bar.takeNerf(1.0 + 50.0*shooter.bar.luck/(object.bar.shield + shooter.bar.luck), 0.5, 3.0)
+		damage = object.bar.takeDamage(damage,2, bulDir)
 	get_parent().player.bar.takeHeal(damage*(shooter.bar.vampirism), 0.5, -bulDir)
-	get_parent().player.bar.takeHeal(shooter.bar.maxHp*(shooter.bar.vampirism), 0, -bulDir)
+	get_parent().player.bar.takeHeal(shooter.bar.maxHp*(shooter.bar.vampirism/4.0), 0, -bulDir)
 	collisions.append(object)
 
 func shoot (pos, dir, index, shtr):

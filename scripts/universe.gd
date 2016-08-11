@@ -4,13 +4,19 @@ extends Node2D
 var frames = 0
 
 var ctrlType = 0
+var castMode = 0
 
 var save
 var player
+
 var didMove = 0
 var rightMouseIsPressed = 0
+
 var indicatorRadious = 0.0
+
 var lastMovePos = Vector2()
+var lockMovePos = Vector2()
+
 var skills = [[0], [0], [0], [0]]
 var planets = [["p1", -800, -800, 0], ["p2",1000,1000, 0]]
 var projectiles = []
@@ -20,11 +26,11 @@ var time = 0.0
 func _init():
 	set_process_input(true)
 	set_process(true)
-	var playerScene = load("res://scenes/Player.scn")
+	var playerScene = load("res://scenes/UI/Player.scn")
 	player = playerScene.instance()
 	add_child(player)
 	player.add_to_group("Persist", true)
-	var saveScene = load("res://scenes/Save.xscn")
+	var saveScene = load("res://scenes/UI/Save.xscn")
 	save = saveScene.instance()
 	add_child(save)
 	var name
@@ -59,12 +65,15 @@ func _process(delta):
 		checkPlanets()
 		if (frames > 1000): 
 			frames = 0
-	elif (ctrlType == 0 and frames%10 == 5 and (get_viewport().get_mouse_pos() - get_viewport().get_rect().size/2).length() > 100):
-		player.get_child(0).moveTo(get_viewport().get_mouse_pos() - get_viewport().get_rect().size/2 + player.get_pos())
-		lastMovePos = get_viewport().get_mouse_pos() - get_viewport().get_rect().size/2 + player.get_child(2).get_camera_screen_center()
+	if (ctrlType == 0 ) :
+		if not Input.is_key_pressed(32) :
+			lockMovePos = get_viewport().get_mouse_pos() - get_viewport().get_rect().size/2
+		if lockMovePos.length() > 100 :
+			lastMovePos = get_viewport().get_mouse_pos() - get_viewport().get_rect().size/2 + player.get_child(2).get_camera_screen_center()
+			player.get_child(0).moveTo(lockMovePos.normalized()*100 + player.get_pos())
 
 	if (player.bar.curHp == 0):
-		var playerScene = load("res://scenes/Player.scn")
+		var playerScene = load("res://scenes/UI/Player.scn")
 		player.queue_free()
 		player = playerScene.instance()
 		add_child(player)
@@ -144,11 +153,12 @@ func doSkill (i):
 	if (player.skillCoolDown[i][0]/(player.bar.speed/player.STDSPEED) + player.skillCoolDown[i][1] < OS.get_ticks_msec()/1000.0 and player.skillCoolDown[i][2] == 1) :
 		var skill = load(player.skillPath[i]).instance()
 		add_child(skill)
-		skill.setup(i)
-		if (i == 0) :
+		var type = skill.setup(i, player)
+		if i == 0 :
 			didMove = 0
-		if (i != 0) :
-			player.skillPre[0].didUseSkill = 1
+		if type == 0 :
+			for i  in player.skillPre :
+				i.didUseSkill = 1
 
 func setBullet (i, bltPath):
 	var nextBullet = [bltPath, i]
@@ -156,7 +166,7 @@ func setBullet (i, bltPath):
 
 func getBullet () :
 	var i = projectiles.size()-1
-	if ((not projectiles.empty()) and player.skillCoolDown[projectiles[i][1]][0]/(player.bar.speed/player.STDSPEED) + player.skillCoolDown[projectiles[i][1]][1] < OS.get_ticks_msec()/1000.0) :
+	if ((not player.bar.projectileBlock) and (not projectiles.empty()) and player.skillCoolDown[projectiles[i][1]][0]/(player.bar.speed/player.STDSPEED) + player.skillCoolDown[projectiles[i][1]][1] < OS.get_ticks_msec()/1000.0) :
 		var nextBullet = projectiles[i]
 		projectiles.remove(i)
 		return nextBullet

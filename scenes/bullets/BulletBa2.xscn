@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resource_file type="PackedScene" subresource_count="5" version="2.0" version_name="Godot Engine v2.0.stable.official">
-	<ext_resource path="res://scripts/bullets/bulletBa2.gd" type="Script" index="0"></ext_resource>
-	<ext_resource path="res://bullet0002.png" type="Texture" index="1"></ext_resource>
-	<ext_resource path="res://scenes/Movement.xscn" type="PackedScene" index="2"></ext_resource>
+	<ext_resource path="res://sprites/bullets/bullet0002.png" type="Texture" index="1">
+	</ext_resource>
+	<ext_resource path="res://scripts/bullets/bulletBa2.gd" type="Script" index="0">
+	</ext_resource>
+	<ext_resource path="res://scenes/Movement.xscn" type="PackedScene" index="2">
+	</ext_resource>
 	<resource type="CircleShape2D" path="local://1">
+
 		<real name="custom_solver_bias"> 0 </real>
 		<real name="radius"> 10 </real>
 
@@ -18,8 +22,9 @@
 			<array  len="0" shared="false">
 			</array>
 			<string> "names" </string>
-			<string_array  len="22">
+			<string_array  len="23">
 				<string> "KinematicBody2D" </string>
+				<string> "z/z" </string>
 				<string> "input/pickable" </string>
 				<string> "collision/layers" </string>
 				<string> "collision/mask" </string>
@@ -48,9 +53,10 @@
 			<array  len="0" shared="false">
 			</array>
 			<string> "nodes" </string>
-			<int_array  len="75"> 				-1, -1, 0, 0, -1, 5, 1, 0, 2, 1, 3, 1, 4, 2, 5, 3, 0, 0, 0, 6, 6, -1, 2, 7, 4, 8, 5, 0, 0, 0, 9, 9, -1, 10, 1, 6, 10, 7, 11, 8, 12, 0, 13, 9, 14, 10, 15, 11, 16, 12, 2, 13, 3, 13, 0, 2, 0, 17, 17, -1, 3, 18, 7, 19, 0, 20, 14, 0, 0, 0, 2147483647, 21, 15, 0, 0 </int_array>
+			<int_array  len="77"> 				-1, -1, 0, 0, -1, 6, 1, 0, 2, 1, 3, 2, 4, 2, 5, 3, 6, 4, 0, 0, 0, 7, 7, -1, 2, 8, 5, 9, 6, 0, 0, 0, 10, 10, -1, 10, 2, 7, 11, 8, 12, 9, 13, 1, 14, 10, 15, 11, 16, 12, 17, 13, 3, 14, 4, 14, 0, 2, 0, 18, 18, -1, 3, 19, 8, 20, 1, 21, 15, 0, 0, 0, 2147483647, 22, 16, 0, 0 </int_array>
 			<string> "variants" </string>
-			<array  len="16" shared="false">
+			<array  len="17" shared="false">
+				<int> -1 </int>
 				<bool> False </bool>
 				<int> 1 </int>
 				<real> 0.08 </real>
